@@ -34,9 +34,9 @@ struct carte{
 
 /* declaration de fonctions utilisateurs */
 struct carte init_pioche();
-struct joueur_s carte(struct joueur_s player, int tab_carte[102]); /* gère la main du joueur au cours de la partie et s'occupe du changement de joueur */
+struct joueur_s carte(struct joueur_s player, struct carte tab_carte[102]); /* gère la main du joueur au cours de la partie et s'occupe du changement de joueur */
 void affichage_carte(struct joueur_s player); /* affiche la main du joueur avant chaque tour */
-struct joueur_s ajout_borne(struct joueur_s player, int n); /* ajoute n borne au joueurs */
+struct joueur_s ajout_borne(struct joueur_s player, int n); /* ajoute n borne au joueurs */ // n = carte.valeur quand une carte est une carte borne
 struct joueur_s changer_etat(struct joueur_s player); /* change l'etat du joueur pour lui permettre de l'avancer ou le stopper */
 int est_fini(struct joueur_s player); /* regarde si la partie est fini avant chaque changement de joueur */
 
@@ -138,4 +138,16 @@ struct carte init_pioche(){
 	printf("%d", n);
 
 	return tab[102];	
-}	
+}
+
+struct joueur_s ajout_borne(struct joueur_s player, int n){
+	player.bornes += n;
+	return player;
+}
+
+struct joueur_s changer_etat(struct joueur_s player)#
+	if (player.etat){
+		player.etat = FALSE;
+	} else if (!player.etat)
+		player.etat = TRUE;
+}
