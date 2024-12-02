@@ -158,7 +158,6 @@ void affichage_progression(struct joueur_s player){
         }       
 }
 	        
-
 struct joueur_s ajout_borne(struct joueur_s player, int n){
 	player.bornes += n; 
 	return player;
@@ -172,4 +171,12 @@ struct joueur_s changer_etat(struct joueur_s player){
 	}
 
 	return player;
+}
+
+int est_fini(struct joueur_s player){
+        if (player.bornes >= 1000){
+                return TRUE;
+        } else {
+                return FALSE;
+        }
 }
