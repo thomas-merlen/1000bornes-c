@@ -29,12 +29,13 @@ struct joueur_s{
 
 struct carte{
 	char nom[100];
-	int valeur;
+	int valeur; /* stock la valeur de la carte */
 };
 
 /* declaration de fonctions utilisateurs */
-struct carte init_pioche();
+struct carte init_pioche(); /* initialise le grand tableau avec la pioche de 102 cartes */
 struct joueur_s carte(struct joueur_s player, struct carte tab_carte[102]); /* gère la main du joueur au cours de la partie et s'occupe du changement de joueur */
+void affichage_progression(struct joueur_s player); /* affiche la progression des joueurs et s'ils ont un malus ou non avant chaque tour */
 void affichage_carte(struct joueur_s player); /* affiche la main du joueur avant chaque tour */
 struct joueur_s ajout_borne(struct joueur_s player, int n); /* ajoute n borne au joueurs */ // n = carte.valeur quand une carte est une carte borne
 struct joueur_s changer_etat(struct joueur_s player); /* change l'etat du joueur pour lui permettre de l'avancer ou le stopper */
@@ -44,18 +45,8 @@ int est_fini(struct joueur_s player); /* regarde si la partie est fini avant cha
 /* fonction principale */
 int main()
 {
-    	
-	init_pioche();
-
-
-	/* declaration et initialisation des variables */
-	// Déclarer le tableau des cartes disponibles
-
-	// Appel de la fonction carte 
-	//
-	// Initialisation du struct
-
-    	/* ici faire quelque chose */
+    	/* declaration et initialisation des variables */
+	
 
     	/* valeur fonction */
     	return EXIT_SUCCESS;
@@ -111,7 +102,7 @@ struct carte init_pioche(){
 			tab[n+3] = reparation;
 			n += 4;
 		}
-
+		/* s'occupe des cartes avec 10 exemplaires */
 		if (i < 10){
 			borne.valeur = 25;
 			tab[n] = borne;
@@ -121,7 +112,7 @@ struct carte init_pioche(){
 			tab[n+2] = borne;
 			n += 3;
 		}
-
+		/* s'occupe des cartes avec 12 exemplaires */
 		if (i < 12){
 			borne.valeur = 100;
 			tab[n] = borne;
@@ -132,16 +123,11 @@ struct carte init_pioche(){
 		n += 1;
 
 	}	
-
-
-	printf("%d ", tab[n-1].valeur);
-	printf("%d", n);
-
 	return tab[102];	
 }
 
 struct joueur_s ajout_borne(struct joueur_s player, int n){
-	player.bornes += n;
+	player.bornes += n; 
 	return player;
 }
 
