@@ -23,24 +23,24 @@
 #define ACCIDENT 17
 #define FIN_ACCIDENT 18
 
-struct joueur_s{
-	int etat; /* variable de type bool pour voir si le joueur peut avancer (init à 0 par défaut)*/
-	int bornes; /* stock le nombre de bornes fait par le joueur (init à 0 par défaut)*/ 
-	char nom[100];
-	int carte[7]; /* tableau stockant les cartes que le joueur possède */
-	int tour; /* stock le nombre de tour (init à 0 par défaut)*/
-	int qui_le_tour; /* stock c'est a quelle joueur de jouer */
-};
-
 struct carte{
 	char nom[100];
 	int valeur; /* stock la valeur de la carte */
 };
 
+struct joueur_s{
+	int etat; /* variable de type bool pour voir si le joueur peut avancer (init à 0 par défaut)*/
+	int bornes; /* stock le nombre de bornes fait par le joueur (init à 0 par défaut)*/ 
+	char nom[100];
+	struct carte carte[7]; /* tableau stockant les cartes que le joueur possède */
+	int tour; /* stock le nombre de tour (init à 0 par défaut)*/
+	int qui_le_tour; /* stock c'est a quelle joueur de jouer */
+};
+
 /* declaration de fonctions utilisateurs */
 struct carte init_pioche(); /* initialise le grand tableau avec la pioche de 102 cartes */
 struct joueur_s carte(struct joueur_s player, struct carte tab_carte[102]); /* gère la main du joueur au cours de la partie et s'occupe du changement de joueur */
-struct joueur_s premiere_carte(struct joueur_s player, struct carte tab_carte[102]); /* attribue les 6 premiere carte aux joueurs au début de la partie */
+struct carte premiere_carte(struct joueur_s player, struct carte tab_carte[102]); /* attribue les 6 premiere carte aux joueurs au début de la partie */
 void affichage_progression(struct joueur_s player); /* affiche la progression des joueurs et s'ils ont un malus ou non avant chaque tour */
 void affichage_carte(struct joueur_s player); /* affiche la main du joueur avant chaque tour */
 struct joueur_s ajout_borne(struct joueur_s player, int n); /* ajoute n borne au joueurs */ // n = carte.valeur quand une carte est une carte borne
@@ -52,7 +52,7 @@ int est_fini(struct joueur_s player); /* regarde si la partie est fini avant cha
 int main()
 {
     	/* declaration et initialisation des variables */
-	
+
 
     	/* valeur fonction */
     	return EXIT_SUCCESS;
@@ -132,8 +132,10 @@ struct carte init_pioche(){
 	return tab[102];	
 }
 
-struct joueur_s carte(struct joueurs_s player, struct carte tab_carte[102]){
-	// INIT LES 6 PREMIERES CARTES DU JOUEURS 
+struct joueur_s carte(struct joueur_s player, struct carte tab_carte[102]){
+	// INIT LES 6 PREMIERES CARTES DU JOUEURS
+	premiere_carte(player, tab_carte);
+	printf("Bonjour le boss");
 	
 	// PIOCHER UNE CARTE AVANT CHAQUE TOUR
 	
@@ -141,10 +143,10 @@ struct joueur_s carte(struct joueurs_s player, struct carte tab_carte[102]){
 	
 	// CHANGE LE TOUR
 	
-	return EXIT_SUCCESS;
+	return player;
 }
 
-struct joueur_s premiere_carte(struct joueur_s player, struct carte tab_carte[102]){
+struct carte premiere_carte(struct joueur_s player, struct carte tab_carte[102]){
         srand(time(NULL));
         int taille_tab_carte = 102; 
         int i, j; /* variable de boucle */
@@ -155,7 +157,7 @@ struct joueur_s premiere_carte(struct joueur_s player, struct carte tab_carte[10
                 player.carte[i] = tab_carte[i]; /* l'ajoute dans la main de notre joueur */
                 /* supprimer les cartes choisies du tableau */
                 for (j = carte_choisi; j < taille_tab_carte; j++){
-                        carte[j] = carte[j+1]; 
+                        tab_carte[j] = tab_carte[j+1]; 
                 }
                 taille_tab_carte--;
         }
@@ -166,7 +168,7 @@ struct joueur_s premiere_carte(struct joueur_s player, struct carte tab_carte[10
 
 
 void affichage_progression(struct joueur_s player){
-        char etat_joueur[200];
+        char *etat_joueur;
         
         if (player.etat){
                 etat_joueur = "Vous pouvez avancer !";
