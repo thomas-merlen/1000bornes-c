@@ -146,6 +146,22 @@ struct joueur_s carte(struct joueurs_s player, struct carte tab_carte[102]){
 
 struct joueur_s premiere_carte(struct joueur_s player, struct carte tab_carte[102]){
         srand(time(NULL));
+        int taille_tab_carte = 102; 
+        int i, j; /* variable de boucle */
+        
+        
+        for (i = 0; i < 7; i++){
+                int carte_choisi = rand() % taille_tab_carte; /* genere une carte aleatoire dans le tableau */
+                player.carte[i] = tab_carte[i]; /* l'ajoute dans la main de notre joueur */
+                /* supprimer les cartes choisies du tableau */
+                for (j = carte_choisi; j < taille_tab_carte; j++){
+                        carte[j] = carte[j+1]; 
+                }
+                taille_tab_carte--;
+        }
+        
+        return tab_carte[102]; 
+      
 }
 
 
