@@ -126,6 +126,10 @@ struct carte init_pioche(){
 	return tab[102];	
 }
 
+struct joueur_s carte(struct joueurs_s player, struct carte tab_carte[102]){
+	return EXIT_SUCCESS;
+}
+
 void affichage_progression(struct joueur_s player){
         char etat_joueur[200];
         
