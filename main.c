@@ -2,10 +2,14 @@
 /* declaration de fonctionnalites supplementaires */
 #include <stdlib.h> /* EXIT_SUCCESS */
 #include <stdio.h> /* printf */
+#include <time.h> /* gere l'aleatoire de notre script */
 
 /* declaration constantes et types utilisateurs */
 #define TRUE 1
 #define FALSE 0
+
+#define P1 1
+#define P2 2
 
 /* declaration des constantes pour les cartes spéciales */
 #define FEU_ROUGE 42
@@ -25,6 +29,7 @@ struct joueur_s{
 	char nom[100];
 	int carte[7]; /* tableau stockant les cartes que le joueur possède */
 	int tour; /* stock le nombre de tour (init à 0 par défaut)*/
+	int qui_le_tour; /* stock c'est a quelle joueur de jouer */
 };
 
 struct carte{
@@ -35,6 +40,7 @@ struct carte{
 /* declaration de fonctions utilisateurs */
 struct carte init_pioche(); /* initialise le grand tableau avec la pioche de 102 cartes */
 struct joueur_s carte(struct joueur_s player, struct carte tab_carte[102]); /* gère la main du joueur au cours de la partie et s'occupe du changement de joueur */
+struct joueur_s premiere_carte(struct joueur_s player, struct carte tab_carte[102]); /* attribue les 6 premiere carte aux joueurs au début de la partie */
 void affichage_progression(struct joueur_s player); /* affiche la progression des joueurs et s'ils ont un malus ou non avant chaque tour */
 void affichage_carte(struct joueur_s player); /* affiche la main du joueur avant chaque tour */
 struct joueur_s ajout_borne(struct joueur_s player, int n); /* ajoute n borne au joueurs */ // n = carte.valeur quand une carte est une carte borne
@@ -127,8 +133,21 @@ struct carte init_pioche(){
 }
 
 struct joueur_s carte(struct joueurs_s player, struct carte tab_carte[102]){
+	// INIT LES 6 PREMIERES CARTES DU JOUEURS 
+	
+	// PIOCHER UNE CARTE AVANT CHAQUE TOUR
+	
+	// ENLEVER LA CARTE UTILISER
+	
+	// CHANGE LE TOUR
+	
 	return EXIT_SUCCESS;
 }
+
+struct joueur_s premiere_carte(struct joueur_s player, struct carte tab_carte[102]){
+        srand(time(NULL));
+}
+
 
 void affichage_progression(struct joueur_s player){
         char etat_joueur[200];
