@@ -138,23 +138,23 @@ void affichage_progression(struct joueur_s player){
 	if (player.bornes >= 0 && player.bornes <= 100){
 		printf("|--------- %dkm %s\n", player.bornes, etat_joueur);
 	} else if (player.bornes > 100 && player.bornes <= 200){
-	        printf("-|-------- %dkm %s\n", player.bornes, etat_joueur);
+	        printf("||-------- %dkm %s\n", player.bornes, etat_joueur);
 	} else if (player.bornes > 200 && player.bornes <= 300){
-	        printf("--|------- %dkm %s\n", player.bornes, etat_joueur);
+	        printf("|||------- %dkm %s\n", player.bornes, etat_joueur);
 	} else if (player.bornes > 300 && player.bornes <= 400){
-	        printf("---|------ %dkm %s\n", player.bornes, etat_joueur);
+	        printf("||||------ %dkm %s\n", player.bornes, etat_joueur);
 	} else if (player.bornes > 400 && player.bornes <= 500){
-	        printf("----|----- %dkm %s\n", player.bornes, etat_joueur);
+	        printf("|||||----- %dkm %s\n", player.bornes, etat_joueur);
 	} else if (player.bornes > 500 && player.bornes <= 600){
-	        printf("-----|---- %dkm %s\n", player.bornes, etat_joueur);
+	        printf("||||||---- %dkm %s\n", player.bornes, etat_joueur);
 	} else if (player.bornes > 600 && player.bornes <= 700){
-	        printf("------|-- %dkm %s\n", player.bornes, etat_joueur);
+	        printf("|||||||-- %dkm %s\n", player.bornes, etat_joueur);
 	} else if (player.bornes > 700 && player.bornes <= 800){
-	        printf("-------|-- %dkm %s\n", player.bornes, etat_joueur);
+	        printf("||||||||-- %dkm %s\n", player.bornes, etat_joueur);
 	} else if (player.bornes > 800 && player.bornes <= 900){
-	        printf("--------|- %dkm %s\n", player.bornes, etat_joueur);
+	        printf("|||||||||- %dkm %s\n", player.bornes, etat_joueur);
 	} else if (player.bornes >= 1000){
-	        printf("---------| %dkm %s\n Bravo %s vous avez gagner !", player.bornes, etat_joueur, player.nom);
+	        printf("|||||||||| %dkm %s\n Bravo %s vous avez gagner !\n", player.bornes, etat_joueur, player.nom);
         }       
 }
 	        
