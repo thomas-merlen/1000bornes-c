@@ -145,9 +145,12 @@ struct joueur_s ajout_borne(struct joueur_s player, int n){
 	return player;
 }
 
-struct joueur_s changer_etat(struct joueur_s player)#
+struct joueur_s changer_etat(struct joueur_s player){
 	if (player.etat){
 		player.etat = FALSE;
-	} else if (!player.etat)
+	} else if (!player.etat){
 		player.etat = TRUE;
+	}
+
+	return player;
 }
