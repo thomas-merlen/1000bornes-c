@@ -103,8 +103,59 @@ void init_pioche(struct pioche_s tab_pioche){
 	int i;
 	int n = 0;
 
-	tab_pioche.tab_pioche[0] = panne_essence;
-	printf("%d", tab_pioche.tab_pioche[0].valeur);		
+	for (i = 0; i<14; i++){
+		if (i<3){
+			tab_pioche.tab_pioche[n] = panne_essence;
+			tab_pioche.tab_pioche[n+1] = crevaison;
+			tab_pioche.tab_pioche[n+2] = accident;
+			n+=3;
+		}
+
+		if (i<4){
+			tab_pioche.tab_pioche[n] = limite_vitesse;
+			borne.valeur = 200;
+			tab_pioche.tab_pioche[n+1] = borne;
+			n+=2;
+		}
+
+		if (i<5){
+			tab_pioche.tab_pioche[n] = feu_rouge;
+			n+=1;
+		}
+
+		if (i<6){
+			tab_pioche.tab_pioche[n] = fin_limite;
+			tab_pioche.tab_pioche[n+1] = ajout_essence;
+			tab_pioche.tab_pioche[n+2] = roue_secours;
+			tab_pioche.tab_pioche[n+3] = reparation;
+			n+=4;
+		}
+
+		if (i<10){
+			borne.valeur = 25;
+			tab_pioche.tab_pioche[n] = borne; 
+			borne.valeur = 50;
+			tab_pioche.tab_pioche[n+1] = borne;
+			borne.valeur = 75;
+			tab_pioche.tab_pioche[n+2] = borne;
+			n+=3;
+		}
+
+		if (i<12){
+			borne.valeur = 100;
+			tab_pioche.tab_pioche[n] = borne;
+			n+=1;
+		}
+
+		if (i<14){
+			tab_pioche.tab_pioche[n] = feu_vert;
+			n+=1;
+		}
+		
+	}
+
+	// tab_pioche.tab_pioche[0] = panne_essence;
+	printf("%d", tab_pioche.tab_pioche[11].valeur);		
 }
 
 struct joueur_s jeux(struct joueur_s player, struct pioche_s tab_pioche){
