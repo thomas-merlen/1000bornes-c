@@ -33,7 +33,6 @@ struct joueur_s{
 	int bornes; /* stock le nombre de bornes fait par le joueur (init à 0 par défaut)*/ 
 	struct carte carte[7]; /* tableau stockant les cartes que le joueur possède */
 	int tour; /* stock le nombre de tour (init à 0 par défaut)*/
-	int qui_le_tour; /* stock c'est a quelle joueur de jouer */
 };
 
 struct pioche_s{
@@ -63,11 +62,25 @@ int main()
 	struct carte vide = {"0", 0};
 	struct carte carte[7] = {vide, vide, vide, vide, vide, vide, vide};
       
-	struct joueur_s joueur1 = {0, 0, carte[7], 0, P1};
-	struct joueur_s joueur2 = {0, 0, carte[7], 0, P1}; 
+	struct joueur_s joueur1 = {0, 0, carte[7], 0};
+	struct joueur_s joueur2 = {0, 0, carte[7], 0}; 
 	
         premiere_carte(joueur1, pioche);
 	premiere_carte(joueur2, pioche);
+
+        int qui_le_tour; 
+        qui_le_tour = P1;
+
+        while (!est_fini){
+                if (qui_le_tour == P1){
+                    carte(joueur1, pioche);
+                    est_fini(joueur1);
+                    qui_le_tour = P2; 
+                } else if (qui_le_tour == P2{
+                    carte(joueur2, pioche);
+                    est_fini(joueur2);
+                    qui_le_tour = P1;
+                }
 	
     	/* valeur fonction */
     	return EXIT_SUCCESS;
@@ -104,6 +117,7 @@ struct joueur_s carte(struct joueur_s player, struct pioche_s tab_pioche){
 	
 	// CHANGE LE TOUR
 	
+	
 	return player;
 }
 
@@ -128,6 +142,7 @@ void ajouter_carte(struct joueur_s player, struct pioche_s tab_pioche){
         srand(time(NULL));
         int i; /* variable de boucle */
         int carte_aleatoire = rand() % 102; /* genere une carte aleatoire dans le tableau */
+        i = carte_aleatoire;
         player.carte[6] = tab_pioche.tab_pioche[i];
         
         /* supprime la carte choisies */
