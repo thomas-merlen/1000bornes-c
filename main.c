@@ -118,15 +118,15 @@ struct carte premiere_carte(struct joueur_s player, struct carte tab_carte[102])
       
 }
 
-struct joueur_s ajouter_carte(struct joueur_s player, struct carte tab_carte[102]){
+struct joueur_s ajouter_carte(struct joueur_s player, struct pioche_s tab_pioche){
         srand(time(NULL));
         int i; /* variable de boucle */
         int carte_aleatoire = rand() % 102; /* genere une carte aleatoire dans le tableau */
-        player.carte[6] = tab_carte[i];
+        player.carte[6] = tab_pioche.tab_pioche[i];
         
         /* supprime la carte choisies */
         for (i = carte_aleatoire; i < 102; i++){
-                      tab_carte[i] = tab_carte[i + 1];
+                      tab_pioche.tab_pioche[i] = tab_pioche.tab_pioche[i + 1];
         }
 }
 
