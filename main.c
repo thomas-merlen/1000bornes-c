@@ -59,9 +59,12 @@ int main()
     	/* declaration et initialisation des variables */
 	struct pioche_s pioche;
 	init_pioche(pioche);
+	
+	struct carte vide = {"0", 0};
+	struct carte carte[7] = {vide, vide, vide, vide, vide, vide, vide};
       
-	struct joueur_s joueur1 = {0, 0, [], 0, P1};
-	struct joueur_s joueur2 = {0, 0, [], 0, P1}; 
+	struct joueur_s joueur1 = {0, 0, carte[7], 0, P1};
+	struct joueur_s joueur2 = {0, 0, carte[7], 0, P1}; 
 	
         premiere_carte(joueur1, pioche);
 	premiere_carte(joueur2, pioche);
