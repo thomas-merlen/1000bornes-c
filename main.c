@@ -129,8 +129,8 @@ void ajouter_carte(struct joueur_s player, struct pioche_s tab_pioche){
 }
 
 void retirer_carte(struct joueur_s player, struct pioche_s tab_pioche, int indice){
-        tmp = player.carte[6];
-        player.carte[6] = player.carte[indice];
+        tmp = player.carte[6]; /* sauvegarde la derniere carte */
+        player.carte[6] = player.carte[indice]; /* met en derniere position la carte a supprimer */
         player.carte[indice] = tmp;
 }
         
