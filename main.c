@@ -37,8 +37,12 @@ struct joueur_s{
 	int qui_le_tour; /* stock c'est a quelle joueur de jouer */
 };
 
+struct pioche_s{
+	struct carte tab_pioche[102];
+};
+
 /* declaration de fonctions utilisateurs */
-struct carte init_pioche(); /* initialise le grand tableau avec la pioche de 102 cartes */
+void init_pioche(struct pioche_s tab_pioche); /* initialise le grand tableau avec la pioche de 102 cartes */
 struct joueur_s carte(struct joueur_s player, struct carte tab_carte[102]); /* gère la main du joueur au cours de la partie et s'occupe du changement de joueur */
 struct carte premiere_carte(struct joueur_s player, struct carte tab_carte[102]); /* attribue les 6 premiere carte aux joueurs au début de la partie */
 struct joueur_s ajouter_carte(struct joueur_s player, struct carte tab_carte[102]); /* donne une carte a un joueur a chaque debut de tour */
@@ -53,15 +57,15 @@ int est_fini(struct joueur_s player); /* regarde si la partie est fini avant cha
 int main()
 {
     	/* declaration et initialisation des variables */
-
+	struct pioche_s test;
+	init_pioche(test);
 
     	/* valeur fonction */
     	return EXIT_SUCCESS;
 }
 
 /* definitions des fonctions utilisateurs */
-struct carte init_pioche(){
-	struct carte tab[102];
+void init_pioche(struct pioche_s tab_pioche){
 	struct carte borne = {"Ajout Borne", 0};
 	struct carte fin_limite = {"Fin de la limite de vitesse", FIN_LIMITE};
 	struct carte ajout_essence = {"Ajout de l'essence", FIN_PANNE}; 
@@ -77,60 +81,8 @@ struct carte init_pioche(){
 	int i;
 	int n = 0;
 
-		
-	for (i = 0; i<14; i++){
-		/* s'occupe des cartes avec 3 exemplaires */
-		if (i < 3){
-			tab[n] = panne_essence;
-			tab[n+1] = crevaison;
-			tab[n+2] = accident;
-
-			n += 3;
-		}
-
-		/* s'occupe des cartes avec 4 exemplaires */
-		if (i < 4){
-			tab[n] = limite_vitesse;
-			borne.valeur = 200;
-			tab[n+1] = borne;
-
-			n += 2;
-		}
-		/* s'occupe des cartes avec 5 exemplaires */
-		if (i < 5){
-			tab[n] = feu_rouge;
-			n += 1;
-		}
-		/* s'occupe des cartes avec 6 exemplaires */
-		if (i < 6){
-			tab[n] = fin_limite;
-			tab[n+1] = ajout_essence;
-			tab[n+2] = roue_secours;
-			tab[n+3] = reparation;
-			n += 4;
-		}
-		/* s'occupe des cartes avec 10 exemplaires */
-		if (i < 10){
-			borne.valeur = 25;
-			tab[n] = borne;
-			borne.valeur = 50;
-			tab[n+1] = borne;
-			borne.valeur = 75;
-			tab[n+2] = borne;
-			n += 3;
-		}
-		/* s'occupe des cartes avec 12 exemplaires */
-		if (i < 12){
-			borne.valeur = 100;
-			tab[n] = borne;
-			n += 1;
-		}
-
-		tab[n] = feu_vert;
-		n += 1;
-
-	}	
-	return tab[102];	
+	tab_pioche.tab_pioche[0] = panne_essence;
+	printf("%d", tab_pioche.tab_pioche[0].valeur);		
 }
 
 struct joueur_s carte(struct joueur_s player, struct carte tab_carte[102]){
