@@ -133,7 +133,7 @@ void init_pioche(struct pioche_s tab_pioche){
 
 		if (i<10){
 			borne.valeur = 25;
-			tab_pioche.tab_pioche[n] = borne; 
+			tab_pioche.tab_pioche[n] = borne; 
 			borne.valeur = 50;
 			tab_pioche.tab_pioche[n+1] = borne;
 			borne.valeur = 75;
