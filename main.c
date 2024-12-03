@@ -86,9 +86,10 @@ void init_pioche(struct pioche_s tab_pioche){
 }
 
 struct joueur_s carte(struct joueur_s player, struct pioche_s tab_pioche){
-	// INIT LES 6 PREMIERES CARTES DU JOUEURS
-	
 	// PIOCHER UNE CARTE AVANT CHAQUE TOUR
+
+	// DECIDE QUEL CARTE JOUER
+	// ACTION CARTE
 	
 	// ENLEVER LA CARTE UTILISER
 	
