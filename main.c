@@ -135,7 +135,6 @@ struct carte init_pioche(){
 struct joueur_s carte(struct joueur_s player, struct carte tab_carte[102]){
 	// INIT LES 6 PREMIERES CARTES DU JOUEURS
 	premiere_carte(player, tab_carte);
-	printf("Bonjour le boss");
 	
 	// PIOCHER UNE CARTE AVANT CHAQUE TOUR
 	
