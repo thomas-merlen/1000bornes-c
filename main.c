@@ -31,7 +31,6 @@ struct carte{
 struct joueur_s{
 	int etat; /* variable de type bool pour voir si le joueur peut avancer (init à 0 par défaut)*/
 	int bornes; /* stock le nombre de bornes fait par le joueur (init à 0 par défaut)*/ 
-	char nom[100];
 	struct carte carte[7]; /* tableau stockant les cartes que le joueur possède */
 	int tour; /* stock le nombre de tour (init à 0 par défaut)*/
 	int qui_le_tour; /* stock c'est a quelle joueur de jouer */
@@ -44,7 +43,7 @@ struct pioche_s{
 /* declaration de fonctions utilisateurs */
 void init_pioche(struct pioche_s tab_pioche); /* initialise le grand tableau avec la pioche de 102 cartes */
 struct joueur_s carte(struct joueur_s player, struct pioche_s tab_pioche); /* gère la main du joueur au cours de la partie et s'occupe du changement de joueur */
-void premiere_carte(struct joueur_s player, struct pioche_s tab_pioche) /* attribue les 6 premiere carte aux joueurs au début de la partie */
+void premiere_carte(struct joueur_s player, struct pioche_s tab_pioche); /* attribue les 6 premiere carte aux joueurs au début de la partie */
 void ajouter_carte(struct joueur_s player, struct pioche_s tab_pioche); /* donne une carte a un joueur a chaque debut de tour */
 void retirer_carte(struct joueur_s player, struct pioche_s tab_pioche, int indice);
 void affichage_progression(struct joueur_s player); /* affiche la progression des joueurs et s'ils ont un malus ou non avant chaque tour */
@@ -129,6 +128,7 @@ void ajouter_carte(struct joueur_s player, struct pioche_s tab_pioche){
 }
 
 void retirer_carte(struct joueur_s player, struct pioche_s tab_pioche, int indice){
+        struct carte tmp;
         tmp = player.carte[6]; /* sauvegarde la derniere carte */
         player.carte[6] = player.carte[indice]; /* met en derniere position la carte a supprimer */
         player.carte[indice] = tmp;
@@ -164,7 +164,7 @@ void affichage_progression(struct joueur_s player){
 	} else if (player.bornes > 800 && player.bornes <= 900){
 	        printf("|||||||||- %dkm %s\n", player.bornes, etat_joueur);
 	} else if (player.bornes >= 1000){
-	        printf("|||||||||| %dkm %s\n Bravo %s vous avez gagner !\n", player.bornes, etat_joueur, player.nom);
+	        printf("|||||||||| %dkm %s\n Bravo vous avez gagner !\n", player.bornes, etat_joueur);
         }       
 }
 	        
