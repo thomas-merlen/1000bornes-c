@@ -58,20 +58,14 @@ int main()
 {
     	/* declaration et initialisation des variables */
 	struct pioche_s pioche;
-	pioche = init_pioche(test);
+	init_pioche(pioche);
       
-	struct joueur_s joueur1;
-	struct joueur_s joueur2;
+	struct joueur_s joueur1 = {0, 0, [], 0, P1};
+	struct joueur_s joueur2 = {0, 0, [], 0, P1}; 
 	
-	struct carte carte_j1; 
-	struct carte carte_j2;
+        premiere_carte(joueur1, pioche);
+	premiere_carte(joueur2, pioche);
 	
-	carte_j1 = premiere_carte(joueur1, pioche);
-	carte_j2 = premiere_carte(joueur2, pioche);
-	
-	joueur1 = {0, 0, carte_j1, 0, P1);
-	joueur2 = {0, 0, carte_j2, 0, P1); 
-
     	/* valeur fonction */
     	return EXIT_SUCCESS;
 }
