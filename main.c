@@ -41,7 +41,7 @@ struct pioche_s{
 
 /* declaration de fonctions utilisateurs */
 void init_pioche(struct pioche_s tab_pioche); /* initialise le grand tableau avec la pioche de 102 cartes */
-struct joueur_s carte(struct joueur_s player, struct pioche_s tab_pioche); /* gère la main du joueur au cours de la partie et s'occupe du changement de joueur */
+struct joueur_s jeux(struct joueur_s player, struct pioche_s tab_pioche); /* gère la main du joueur au cours de la partie et s'occupe du changement de joueur */
 void premiere_carte(struct joueur_s player, struct pioche_s tab_pioche); /* attribue les 6 premiere carte aux joueurs au début de la partie */
 void ajouter_carte(struct joueur_s player, struct pioche_s tab_pioche); /* donne une carte a un joueur a chaque debut de tour */
 void retirer_carte(struct joueur_s player, struct pioche_s tab_pioche, int indice);
@@ -73,15 +73,15 @@ int main()
 
         while (!est_fini){
                 if (qui_le_tour == P1){
-                    carte(joueur1, pioche);
+                    jeux(joueur1, pioche);
                     est_fini(joueur1);
                     qui_le_tour = P2; 
-                } else if (qui_le_tour == P2{
-                    carte(joueur2, pioche);
+                } else if (qui_le_tour == P2){
+                    jeux(joueur2, pioche);
                     est_fini(joueur2);
                     qui_le_tour = P1;
                 }
-	
+        }
     	/* valeur fonction */
     	return EXIT_SUCCESS;
 }
@@ -107,7 +107,7 @@ void init_pioche(struct pioche_s tab_pioche){
 	printf("%d", tab_pioche.tab_pioche[0].valeur);		
 }
 
-struct joueur_s carte(struct joueur_s player, struct pioche_s tab_pioche){
+struct joueur_s jeux(struct joueur_s player, struct pioche_s tab_pioche){
 	// PIOCHER UNE CARTE AVANT CHAQUE TOUR
 
 	// DECIDE QUEL CARTE JOUER
