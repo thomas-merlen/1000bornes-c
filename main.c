@@ -57,8 +57,20 @@ int est_fini(struct joueur_s player); /* regarde si la partie est fini avant cha
 int main()
 {
     	/* declaration et initialisation des variables */
-	struct pioche_s test;
-	init_pioche(test);
+	struct pioche_s pioche;
+	pioche = init_pioche(test);
+      
+	struct joueur_s joueur1;
+	struct joueur_s joueur2;
+	
+	struct carte carte_j1; 
+	struct carte carte_j2;
+	
+	carte_j1 = premiere_carte(joueur1, pioche);
+	carte_j2 = premiere_carte(joueur2, pioche);
+	
+	joueur1 = {0, 0, carte_j1, 0, P1);
+	joueur2 = {0, 0, carte_j2, 0, P1); 
 
     	/* valeur fonction */
     	return EXIT_SUCCESS;
