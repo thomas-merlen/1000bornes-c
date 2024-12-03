@@ -41,6 +41,7 @@ struct joueur_s{
 struct carte init_pioche(); /* initialise le grand tableau avec la pioche de 102 cartes */
 struct joueur_s carte(struct joueur_s player, struct carte tab_carte[102]); /* gère la main du joueur au cours de la partie et s'occupe du changement de joueur */
 struct carte premiere_carte(struct joueur_s player, struct carte tab_carte[102]); /* attribue les 6 premiere carte aux joueurs au début de la partie */
+struct joueur_s ajouter_carte(struct joueur_s player, struct carte tab_carte[102]); /* donne une carte a un joueur a chaque debut de tour */
 void affichage_progression(struct joueur_s player); /* affiche la progression des joueurs et s'ils ont un malus ou non avant chaque tour */
 void affichage_carte(struct joueur_s player); /* affiche la main du joueur avant chaque tour */
 struct joueur_s ajout_borne(struct joueur_s player, int n); /* ajoute n borne au joueurs */ // n = carte.valeur quand une carte est une carte borne
@@ -165,6 +166,17 @@ struct carte premiere_carte(struct joueur_s player, struct carte tab_carte[102])
       
 }
 
+struct joueur_s ajouter_carte(struct joueur_s player, struct carte tab_carte[102]){
+        srand(time(NULL));
+        int i; /* variable de boucle */
+        int carte_aleatoire = rand() % 102; /* genere une carte aleatoire dans le tableau */
+        player.carte[6] = tab_carte[i];
+        
+        /* supprime la carte choisies */
+        for (i = carte_aleatoire; i < 102; i++){
+                      tab_carte[i] = tab_carte[i + 1];
+        }
+}
 
 void affichage_progression(struct joueur_s player){
         char *etat_joueur;
