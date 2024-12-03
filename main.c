@@ -46,6 +46,7 @@ void init_pioche(struct pioche_s tab_pioche); /* initialise le grand tableau ave
 struct joueur_s carte(struct joueur_s player, struct pioche_s tab_pioche); /* gère la main du joueur au cours de la partie et s'occupe du changement de joueur */
 void premiere_carte(struct joueur_s player, struct pioche_s tab_pioche) /* attribue les 6 premiere carte aux joueurs au début de la partie */
 void ajouter_carte(struct joueur_s player, struct pioche_s tab_pioche); /* donne une carte a un joueur a chaque debut de tour */
+void retirer_carte(struct joueur_s player, struct pioche_s tab_pioche, int indice);
 void affichage_progression(struct joueur_s player); /* affiche la progression des joueurs et s'ils ont un malus ou non avant chaque tour */
 void affichage_carte(struct joueur_s player); /* affiche la main du joueur avant chaque tour */
 struct joueur_s ajout_borne(struct joueur_s player, int n); /* ajoute n borne au joueurs */ // n = carte.valeur quand une carte est une carte borne
@@ -126,6 +127,14 @@ void ajouter_carte(struct joueur_s player, struct pioche_s tab_pioche){
                       tab_pioche.tab_pioche[i] = tab_pioche.tab_pioche[i + 1];
         }
 }
+
+void retirer_carte(struct joueur_s player, struct pioche_s tab_pioche, int indice){
+        tmp = player.carte[6];
+        player.carte[6] = player.carte[indice];
+        player.carte[indice] = tmp;
+}
+        
+        
 
 void affichage_progression(struct joueur_s player){
         char *etat_joueur;
