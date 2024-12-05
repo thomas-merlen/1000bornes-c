@@ -44,7 +44,7 @@ void init_pioche(struct carte tab_pioche[102]); /* initialise le grand tableau a
 struct joueur_s jeux(struct joueur_s player1, struct joueur_s player2, struct pioche_s tab_pioche); /* gère la main du joueur au cours de la partie et s'occupe du changement de joueur */
 void premiere_carte(struct carte carte_joueur[7], struct pioche_s tab_pioche); /* attribue les 6 premiere carte aux joueurs au début de la partie */
 void ajouter_carte(struct carte carte_joueur[7], struct pioche_s pioche); /* donne une carte a un joueur a chaque debut de tour */
-void retirer_carte(struct carte carte_joueur[7], struct pioche_s tab_pioche, int indice);
+void retirer_carte(struct carte carte_joueur[7], int indice);
 void affichage_progression(struct joueur_s player); /* affiche la progression des joueurs et s'ils ont un malus ou non avant chaque tour */
 void affichage_carte(struct carte carte_joueur[7]); /* affiche la main du joueur avant chaque tour */
 int ajout_borne(int player_borne, int n); /* ajoute n borne au joueurs */ // n = carte.valeur quand une carte est une carte borne
@@ -174,6 +174,8 @@ struct joueur_s jeux(struct joueur_s player1, struct joueur_s player2, struct pi
 	printf("Quelle carte souhaitez vous utiliser ?\n");
 	scanf("%d", &carte_choisie);
 
+	retirer_carte(player1.carte, carte_choisie);
+
 	/* si la carte est une interdiction */
 	if (player1.carte[carte_choisie].valeur == FEU_ROUGE || player1.carte[carte_choisie].valeur == LIMITE_VITESSE || player1.carte[carte_choisie].valeur == PANNE_ESSENCE || player1.carte[carte_choisie].valeur == CREVAISON || player1.carte[carte_choisie].valeur == ACCIDENT){
 		player2.etat = 0;
@@ -189,7 +191,7 @@ struct joueur_s jeux(struct joueur_s player1, struct joueur_s player2, struct pi
 		ajout_borne(player1.bornes, player1.carte[carte_choisie].valeur);
 	}
 
-	retirer_carte(player1.carte, tab_pioche, carte_choisie);	
+	affichage_progression(player1);
 	
 	return player1;
 }
@@ -224,12 +226,11 @@ void ajouter_carte(struct carte carte_joueur[7], struct pioche_s pioche){
         }
 }
 
-void retirer_carte(struct carte carte_joueur[7], struct pioche_s tab_pioche, int indice){
+void retirer_carte(struct carte carte_joueur[7], int indice){
         struct carte tmp;
         tmp = carte_joueur[6]; /* sauvegarde la derniere carte */
-		carte_joueur[indice] = tmp;
         carte_joueur[6] = carte_joueur[indice]; /* met en derniere position la carte a supprimer */
-        
+		carte_joueur[indice] = tmp;
 }
         
         
