@@ -55,7 +55,7 @@ int est_fini(struct joueur_s player); /* regarde si la partie est fini avant cha
 /* fonction principale */
 int main()
 {
-    	/* declaration et initialisation des variables */
+    /* declaration et initialisation des variables */
 	struct pioche_s pioche;
 	init_pioche(pioche);
 	
@@ -68,27 +68,28 @@ int main()
     premiere_carte(joueur1, pioche);
 	premiere_carte(joueur2, pioche);
 
-        int qui_le_tour; 
-        qui_le_tour = P1;
+    int qui_le_tour; 
+    qui_le_tour = P1;
 
-        while (!est_fini){
-                if (qui_le_tour == P1){
-                    jeux(joueur1, joueur2, pioche);
-                    est_fini(joueur1);
-                    qui_le_tour = P2; 
-                } else if (qui_le_tour == P2){
-                    jeux(joueur2, joueur1, pioche);
-                    est_fini(joueur2);
-                    qui_le_tour = P1;
-                }
-        }
-    	/* valeur fonction */
-    	return EXIT_SUCCESS;
+    while (!est_fini(joueur1) || !est_fini(joueur2)){
+            if (qui_le_tour == P1){
+                jeux(joueur1, joueur2, pioche);
+                est_fini(joueur1);
+                qui_le_tour = P2; 
+            } else if (qui_le_tour == P2){
+                jeux(joueur2, joueur1, pioche);
+                est_fini(joueur2);
+                qui_le_tour = P1;
+            }
+    }
+
+    /* valeur fonction */
+    return EXIT_SUCCESS;
 }
 
 /* definitions des fonctions utilisateurs */
 void init_pioche(struct pioche_s tab_pioche){
-	struct carte borne = {"Ajout Borne", 0};
+	struct carte borne = {"Ajout Borne ", 0};
 	struct carte fin_limite = {"Fin de la limite de vitesse", FIN_LIMITE};
 	struct carte ajout_essence = {"Ajout de l'essence", FIN_PANNE}; 
 	struct carte roue_secours = {"Equipe une nouvelle roue", FIN_CREVAISON};
@@ -135,8 +136,10 @@ void init_pioche(struct pioche_s tab_pioche){
 		if (i<10){
 			borne.valeur = 25;
 			tab_pioche.tab_pioche[n] = borne; 
+			
 			borne.valeur = 50;
 			tab_pioche.tab_pioche[n+1] = borne;
+
 			borne.valeur = 75;
 			tab_pioche.tab_pioche[n+2] = borne;
 			n+=3;
@@ -252,27 +255,27 @@ void affichage_progression(struct joueur_s player){
                 etat_joueur = "Vous êtes bloquer, posez la carte nécessaire !";
         }
 
-	if (player.bornes >= 0 && player.bornes <= 100){
-		printf("|--------- %dkm %s\n", player.bornes, etat_joueur);
-	} else if (player.bornes > 100 && player.bornes <= 200){
-	        printf("||-------- %dkm %s\n", player.bornes, etat_joueur);
-	} else if (player.bornes > 200 && player.bornes <= 300){
-	        printf("|||------- %dkm %s\n", player.bornes, etat_joueur);
-	} else if (player.bornes > 300 && player.bornes <= 400){
-	        printf("||||------ %dkm %s\n", player.bornes, etat_joueur);
-	} else if (player.bornes > 400 && player.bornes <= 500){
-	        printf("|||||----- %dkm %s\n", player.bornes, etat_joueur);
-	} else if (player.bornes > 500 && player.bornes <= 600){
-	        printf("||||||---- %dkm %s\n", player.bornes, etat_joueur);
-	} else if (player.bornes > 600 && player.bornes <= 700){
-	        printf("|||||||-- %dkm %s\n", player.bornes, etat_joueur);
-	} else if (player.bornes > 700 && player.bornes <= 800){
-	        printf("||||||||-- %dkm %s\n", player.bornes, etat_joueur);
-	} else if (player.bornes > 800 && player.bornes <= 900){
-	        printf("|||||||||- %dkm %s\n", player.bornes, etat_joueur);
-	} else if (player.bornes >= 1000){
-	        printf("|||||||||| %dkm %s\n Bravo vous avez gagner !\n", player.bornes, etat_joueur);
-        }       
+		if (player.bornes >= 0 && player.bornes <= 100){
+			printf("|--------- %dkm %s\n", player.bornes, etat_joueur);
+		} else if (player.bornes > 100 && player.bornes <= 200){
+				printf("||-------- %dkm %s\n", player.bornes, etat_joueur);
+		} else if (player.bornes > 200 && player.bornes <= 300){
+				printf("|||------- %dkm %s\n", player.bornes, etat_joueur);
+		} else if (player.bornes > 300 && player.bornes <= 400){
+				printf("||||------ %dkm %s\n", player.bornes, etat_joueur);
+		} else if (player.bornes > 400 && player.bornes <= 500){
+				printf("|||||----- %dkm %s\n", player.bornes, etat_joueur);
+		} else if (player.bornes > 500 && player.bornes <= 600){
+				printf("||||||---- %dkm %s\n", player.bornes, etat_joueur);
+		} else if (player.bornes > 600 && player.bornes <= 700){
+				printf("|||||||-- %dkm %s\n", player.bornes, etat_joueur);
+		} else if (player.bornes > 700 && player.bornes <= 800){
+				printf("||||||||-- %dkm %s\n", player.bornes, etat_joueur);
+		} else if (player.bornes > 800 && player.bornes <= 900){
+				printf("|||||||||- %dkm %s\n", player.bornes, etat_joueur);
+		} else if (player.bornes >= 1000){
+				printf("|||||||||| %dkm %s\n Bravo vous avez gagner !\n", player.bornes, etat_joueur);
+			}       
 }
 
 void affichage_carte(struct joueur_s player){
@@ -299,9 +302,9 @@ struct joueur_s changer_etat(struct joueur_s player){
 }
 
 int est_fini(struct joueur_s player){
-        if (player.bornes >= 1000){
-                return TRUE;
-        } else {
-                return FALSE;
-        }
+    if (player.bornes >= 1000){
+            return TRUE;
+    } else {
+            return FALSE;
+    }
 }
