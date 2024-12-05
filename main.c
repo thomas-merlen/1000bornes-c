@@ -41,7 +41,7 @@ struct pioche_s{
 
 /* declaration de fonctions utilisateurs */
 void init_pioche(struct carte tab_pioche[102]); /* initialise le grand tableau avec la pioche de 102 cartes */
-struct joueur_s jeux(struct joueur_s player1, struct joueur_s player2, struct pioche_s tab_pioche); /* gère la main du joueur au cours de la partie et s'occupe du changement de joueur */
+void jeux(struct joueur_s player1, struct joueur_s player2, struct pioche_s tab_pioche); /* gère la main du joueur au cours de la partie et s'occupe du changement de joueur */
 void premiere_carte(struct carte carte_joueur[7], struct pioche_s tab_pioche); /* attribue les 6 premiere carte aux joueurs au début de la partie */
 void ajouter_carte(struct carte carte_joueur[7], struct pioche_s pioche); /* donne une carte a un joueur a chaque debut de tour */
 void retirer_carte(struct carte carte_joueur[7], int indice);
@@ -163,7 +163,7 @@ void init_pioche(struct carte pioche[102]){
 	}
 }
 
-struct joueur_s jeux(struct joueur_s player1, struct joueur_s player2, struct pioche_s tab_pioche){
+void jeux(struct joueur_s player1, struct joueur_s player2, struct pioche_s tab_pioche){
 	int carte_choisie;
 
 	/* pioche une carte avant de joueur */
@@ -192,8 +192,6 @@ struct joueur_s jeux(struct joueur_s player1, struct joueur_s player2, struct pi
 	}
 
 	affichage_progression(player1);
-	
-	return player1;
 }
 
 void premiere_carte(struct carte carte_joueur[7], struct pioche_s pioche){
