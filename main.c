@@ -240,7 +240,15 @@ void affichage_progression(struct joueur_s player){
 	        printf("|||||||||| %dkm %s\n Bravo vous avez gagner !\n", player.bornes, etat_joueur);
         }       
 }
-	        
+
+void affichage_carte(struct joueur_s player){
+        int i; /* variable de boucle */
+        
+        for (i = 0; i < 7; i++){
+              printf("%s (%d), ", player.carte[i].nom, i);
+        }       
+}
+
 struct joueur_s ajout_borne(struct joueur_s player, int n){
 	player.bornes += n; 
 	return player;
