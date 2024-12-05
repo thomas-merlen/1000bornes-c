@@ -157,14 +157,15 @@ void init_pioche(struct pioche_s tab_pioche){
 }
 
 struct joueur_s jeux(struct joueur_s player, struct pioche_s tab_pioche){
-	struct carte carte_choisie;
-	
+	int carte_choisie;
+
 	// PIOCHER UNE CARTE AVANT CHAQUE TOUR
 	ajouter_carte(player, tab_pioche);	
 
 	// DECIDE QUEL CARTE JOUER
 	affichage_carte(player); /* affiche les cartes du joueur*/
 	printf("Quelle carte souhaitez vous utiliser ?\n");
+	scanf("%d", &carte_choisie);
 
 	// ACTION CARTE
 	
