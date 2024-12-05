@@ -48,7 +48,7 @@ void retirer_carte(struct joueur_s player, struct pioche_s tab_pioche, int indic
 void affichage_progression(struct joueur_s player); /* affiche la progression des joueurs et s'ils ont un malus ou non avant chaque tour */
 void affichage_carte(struct carte carte_joueur[7]); /* affiche la main du joueur avant chaque tour */
 int ajout_borne(int player_borne, int n); /* ajoute n borne au joueurs */ // n = carte.valeur quand une carte est une carte borne
-struct joueur_s changer_etat(struct joueur_s player); /* change l'etat du joueur pour lui permettre de l'avancer ou le stopper */
+int changer_etat(int player_etat); /* change l'etat du joueur pour lui permettre de l'avancer ou le stopper */
 int est_fini(struct joueur_s player); /* regarde si la partie est fini avant chaque changement de joueur */
 
 
@@ -295,14 +295,16 @@ int ajout_borne(int player_borne, int n){
 	return player_borne + n; 
 }
 
-struct joueur_s changer_etat(struct joueur_s player){
-	if (player.etat){
-		player.etat = FALSE;
-	} else if (!player.etat){
-		player.etat = TRUE;
+int changer_etat(int player_etat){
+	// 	joueur1.etat = changer_etat(joueur1.etat);
+	int n;
+	if (player_etat == 0){
+		n = 1;
+	} else if (player_etat == 1){
+		n = 0;
 	}
 
-	return player;
+	return n;
 }
 
 int est_fini(struct joueur_s player){
