@@ -154,9 +154,6 @@ void init_pioche(struct pioche_s tab_pioche){
 		}
 		
 	}
-
-	// tab_pioche.tab_pioche[0] = panne_essence;
-	printf("%d", tab_pioche.tab_pioche[11].valeur);		
 }
 
 struct joueur_s jeux(struct joueur_s player, struct pioche_s tab_pioche){
