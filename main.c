@@ -104,25 +104,26 @@ void init_pioche(struct pioche_s tab_pioche){
 	int n = 0;
 
 	for (i = 0; i<14; i++){
+		/* gère les cartes avec 3 exemplaires */
 		if (i<3){
 			tab_pioche.tab_pioche[n] = panne_essence;
 			tab_pioche.tab_pioche[n+1] = crevaison;
 			tab_pioche.tab_pioche[n+2] = accident;
 			n+=3;
 		}
-
+		/* gère les cartes avec 4 exemplaires */
 		if (i<4){
 			tab_pioche.tab_pioche[n] = limite_vitesse;
 			borne.valeur = 200;
 			tab_pioche.tab_pioche[n+1] = borne;
 			n+=2;
 		}
-
+		/* gère les cartes avec 5 exemplaires */
 		if (i<5){
 			tab_pioche.tab_pioche[n] = feu_rouge;
 			n+=1;
 		}
-
+		/* gère les cartes avec 6 exemplaires */
 		if (i<6){
 			tab_pioche.tab_pioche[n] = fin_limite;
 			tab_pioche.tab_pioche[n+1] = ajout_essence;
@@ -130,7 +131,7 @@ void init_pioche(struct pioche_s tab_pioche){
 			tab_pioche.tab_pioche[n+3] = reparation;
 			n+=4;
 		}
-
+		/* gère les cartes avec 10 exemplaires */
 		if (i<10){
 			borne.valeur = 25;
 			tab_pioche.tab_pioche[n] = borne; 
@@ -140,13 +141,13 @@ void init_pioche(struct pioche_s tab_pioche){
 			tab_pioche.tab_pioche[n+2] = borne;
 			n+=3;
 		}
-
+		/* gère les cartes avec 12 exemplaires */
 		if (i<12){
 			borne.valeur = 100;
 			tab_pioche.tab_pioche[n] = borne;
 			n+=1;
 		}
-
+		/* gère les cartes avec 14 exemplaires */
 		if (i<14){
 			tab_pioche.tab_pioche[n] = feu_vert;
 			n+=1;
