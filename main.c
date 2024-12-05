@@ -88,7 +88,11 @@ int main()
 
 /* definitions des fonctions utilisateurs */
 void init_pioche(struct carte pioche[102]){
-	struct carte borne = {"Ajout Borne", 0};
+	struct carte borne25 = {"Ajout Borne 25 kilomètres", 0};
+	struct carte borne50 = {"Ajout Borne 50 kilomètres", 0};
+	struct carte borne75 = {"Ajout Borne 75 kilomètres", 0};
+	struct carte borne100 = {"Ajout Borne 100 kilomètres", 0};
+	struct carte borne200 = {"Ajout Borne 200 kilomètres", 0};
 	struct carte fin_limite = {"Fin de la limite de vitesse", FIN_LIMITE};
 	struct carte ajout_essence = {"Ajout de l'essence", FIN_PANNE}; 
 	struct carte roue_secours = {"Equipe une nouvelle roue", FIN_CREVAISON};
@@ -114,8 +118,7 @@ void init_pioche(struct carte pioche[102]){
 		/* gère les cartes avec 4 exemplaires */
 		if (i<4){
 			pioche[n] = limite_vitesse;
-			borne.valeur = 200;
-			pioche[n+1] = borne;
+			pioche[n+1] = borne200;
 			n+=2;
 		}
 		/* gère les cartes avec 5 exemplaires */
@@ -133,18 +136,14 @@ void init_pioche(struct carte pioche[102]){
 		}
 		/* gère les cartes avec 10 exemplaires */
 		if (i<10){
-			borne.valeur = 25;
-			pioche[n] = borne; 
-			borne.valeur = 50;
-			pioche[n+1] = borne;
-			borne.valeur = 75;
-			pioche[n+2] = borne;
+			pioche[n] = borne25; 
+			pioche[n+1] = borne50;
+			pioche[n+2] = borne75;
 			n+=3;
 		}
 		/* gère les cartes avec 12 exemplaires */
 		if (i<12){
-			borne.valeur = 100;
-			pioche[n] = borne;
+			pioche[n] = borne100;
 			n+=1;
 		}
 		/* gère les cartes avec 14 exemplaires */
