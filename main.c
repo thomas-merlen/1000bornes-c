@@ -57,6 +57,7 @@ int main()
 {
     /* declaration et initialisation des variables */
 	struct pioche_s pioche;
+	init_pioche(pioche.tab_pioche);
 	
 	struct carte vide = {"0", 0};
 	struct carte carte[7] = {vide, vide, vide, vide, vide, vide, vide};
