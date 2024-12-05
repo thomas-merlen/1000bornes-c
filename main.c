@@ -65,7 +65,7 @@ int main()
 	struct joueur_s joueur1 = {0, 0, carte[7], 0};
 	struct joueur_s joueur2 = {0, 0, carte[7], 0}; 
 	
-        premiere_carte(joueur1, pioche);
+    premiere_carte(joueur1, pioche);
 	premiere_carte(joueur2, pioche);
 
         int qui_le_tour; 
@@ -157,9 +157,15 @@ void init_pioche(struct pioche_s tab_pioche){
 }
 
 struct joueur_s jeux(struct joueur_s player, struct pioche_s tab_pioche){
+	struct carte carte_choisie;
+	
 	// PIOCHER UNE CARTE AVANT CHAQUE TOUR
+	ajouter_carte(player, tab_pioche);	
 
 	// DECIDE QUEL CARTE JOUER
+	affichage_carte(player); /* affiche les cartes du joueur*/
+	printf("Quelle carte souhaitez vous utiliser ?\n");
+
 	// ACTION CARTE
 	
 	// ENLEVER LA CARTE UTILISER
