@@ -71,12 +71,17 @@ int main()
     int qui_le_tour; 
     qui_le_tour = P1;
 
+	system("clear"); /* permet d'effacer tous le terminal pour une belle interface */
+
+
     while (!est_fini(joueur1) || !est_fini(joueur2)){
             if (qui_le_tour == P1){
+				printf("Tour du joueur 1\n");
                 jeux(joueur1, joueur2, pioche);
                 est_fini(joueur1);
                 qui_le_tour = P2; 
             } else if (qui_le_tour == P2){
+				printf("Tour du joueur 2\n");
                 jeux(joueur2, joueur1, pioche);
                 est_fini(joueur2);
                 qui_le_tour = P1;
@@ -177,7 +182,7 @@ struct joueur_s jeux(struct joueur_s player1, struct joueur_s player2, struct pi
 		player1.etat = 1;
 	}
 
-	/* */
+	/* carte borne pour avancer */
 	if (player1.carte[carte_choisie].valeur == 25){
 		player1.bornes += 25;
 	}
@@ -279,17 +284,11 @@ void affichage_progression(struct joueur_s player){
 
 void affichage_carte(struct carte carte_joueur[7]){
         int i; /* variable de boucle */
-        
-		if (carte_joueur[i].valeur == 25 || carte_joueur[i].valeur == 50 || carte_joueur[i].valeur == 75 || carte_joueur[i].valeur == 100 || carte_joueur[i].valeur == 200){
-			for (i = 0; i < 7; i++){
-				printf("%s %d (%d), ", carte_joueur[i].nom, carte_joueur[i].valeur, i);
-			}
-		} else {
-			for (i = 0; i < 7; i++){
-				printf("%s (%d), ", carte_joueur[i].nom, i);
-			}
-		}     
-}
+		for (i = 0; i < 7; i++){
+			printf("%s (%d), ", carte_joueur[i].nom, i);
+		}
+}     
+
 
 int ajout_borne(int player_borne, int n){
 	return player_borne + n; 
