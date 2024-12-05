@@ -43,8 +43,8 @@ struct pioche_s{
 void init_pioche(struct carte tab_pioche[102]); /* initialise le grand tableau avec la pioche de 102 cartes */
 struct joueur_s jeux(struct joueur_s player1, struct joueur_s player2, struct pioche_s tab_pioche); /* gère la main du joueur au cours de la partie et s'occupe du changement de joueur */
 void premiere_carte(struct carte carte_joueur[7], struct pioche_s tab_pioche); /* attribue les 6 premiere carte aux joueurs au début de la partie */
-void ajouter_carte(struct joueur_s player, struct pioche_s tab_pioche); /* donne une carte a un joueur a chaque debut de tour */
-void retirer_carte(struct joueur_s player, struct pioche_s tab_pioche, int indice);
+void ajouter_carte(struct carte carte_joueur[7], struct pioche_s pioche); /* donne une carte a un joueur a chaque debut de tour */
+void retirer_carte(struct carte carte_joueur[7], struct pioche_s tab_pioche, int indice);
 void affichage_progression(struct joueur_s player); /* affiche la progression des joueurs et s'ils ont un malus ou non avant chaque tour */
 void affichage_carte(struct carte carte_joueur[7]); /* affiche la main du joueur avant chaque tour */
 int ajout_borne(int player_borne, int n); /* ajoute n borne au joueurs */ // n = carte.valeur quand une carte est une carte borne
@@ -165,7 +165,7 @@ struct joueur_s jeux(struct joueur_s player1, struct joueur_s player2, struct pi
 	int carte_choisie;
 
 	/* pioche une carte avant de joueur */
-	ajouter_carte(player1, tab_pioche);	
+	ajouter_carte(player1.carte, tab_pioche);	
 
 	/* saisie utilisateur */
 	affichage_carte(player1.carte); /* affiche les cartes du joueur*/
@@ -204,7 +204,7 @@ struct joueur_s jeux(struct joueur_s player1, struct joueur_s player2, struct pi
 	}
 
 	
-	retirer_carte(player1, tab_pioche, carte_choisie);	
+	retirer_carte(player1.carte, tab_pioche, carte_choisie);	
 	
 	return player1;
 }
@@ -228,24 +228,24 @@ void premiere_carte(struct carte carte_joueur[7], struct pioche_s pioche){
         }      
 }
 
-void ajouter_carte(struct joueur_s player, struct pioche_s tab_pioche){
+void ajouter_carte(struct carte carte_joueur[7], struct pioche_s pioche){
         srand(time(NULL));
         int i; /* variable de boucle */
         int carte_aleatoire = rand() % 102; /* genere une carte aleatoire dans le tableau */
         i = carte_aleatoire;
-        player.carte[6] = tab_pioche.tab_pioche[i];
+        carte_joueur[6] = pioche.tab_pioche[i];
         
         /* supprime la carte choisies */
         for (i = carte_aleatoire; i < 102; i++){
-                      tab_pioche.tab_pioche[i] = tab_pioche.tab_pioche[i + 1];
+                      pioche.tab_pioche[i] = pioche.tab_pioche[i + 1];
         }
 }
 
-void retirer_carte(struct joueur_s player, struct pioche_s tab_pioche, int indice){
+void retirer_carte(struct carte carte_joueur[7], struct pioche_s tab_pioche, int indice){
         struct carte tmp;
-        tmp = player.carte[6]; /* sauvegarde la derniere carte */
-        player.carte[6] = player.carte[indice]; /* met en derniere position la carte a supprimer */
-        player.carte[indice] = tmp;
+        tmp = carte_joueur[6]; /* sauvegarde la derniere carte */
+        carte_joueur[6] = carte_joueur[indice]; /* met en derniere position la carte a supprimer */
+        carte_joueur[indice] = tmp;
 }
         
         
