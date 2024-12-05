@@ -41,7 +41,7 @@ struct pioche_s{
 
 /* declaration de fonctions utilisateurs */
 void init_pioche(struct pioche_s tab_pioche); /* initialise le grand tableau avec la pioche de 102 cartes */
-struct joueur_s jeux(struct joueur_s player, struct pioche_s tab_pioche); /* gère la main du joueur au cours de la partie et s'occupe du changement de joueur */
+struct joueur_s jeux(struct joueur_s player1, struct joueur_s player2, struct pioche_s tab_pioche); /* gère la main du joueur au cours de la partie et s'occupe du changement de joueur */
 void premiere_carte(struct joueur_s player, struct pioche_s tab_pioche); /* attribue les 6 premiere carte aux joueurs au début de la partie */
 void ajouter_carte(struct joueur_s player, struct pioche_s tab_pioche); /* donne une carte a un joueur a chaque debut de tour */
 void retirer_carte(struct joueur_s player, struct pioche_s tab_pioche, int indice);
@@ -73,11 +73,11 @@ int main()
 
         while (!est_fini){
                 if (qui_le_tour == P1){
-                    jeux(joueur1, pioche);
+                    jeux(joueur1, joueur2, pioche);
                     est_fini(joueur1);
                     qui_le_tour = P2; 
                 } else if (qui_le_tour == P2){
-                    jeux(joueur2, pioche);
+                    jeux(joueur2, joueur1, pioche);
                     est_fini(joueur2);
                     qui_le_tour = P1;
                 }
@@ -156,25 +156,52 @@ void init_pioche(struct pioche_s tab_pioche){
 	}
 }
 
-struct joueur_s jeux(struct joueur_s player, struct pioche_s tab_pioche){
+struct joueur_s jeux(struct joueur_s player1, struct joueur_s player2, struct pioche_s tab_pioche){
 	int carte_choisie;
 
-	// PIOCHER UNE CARTE AVANT CHAQUE TOUR
-	ajouter_carte(player, tab_pioche);	
+	/* pioche une carte avant de joueur */
+	ajouter_carte(player1, tab_pioche);	
 
-	// DECIDE QUEL CARTE JOUER
-	affichage_carte(player); /* affiche les cartes du joueur*/
+	/* saisie utilisateur */
+	affichage_carte(player1); /* affiche les cartes du joueur*/
 	printf("Quelle carte souhaitez vous utiliser ?\n");
 	scanf("%d", &carte_choisie);
 
-	// ACTION CARTE
+	/* si la carte est une interdiction */
+	if (player1.carte[carte_choisie].valeur == FEU_ROUGE || player1.carte[carte_choisie].valeur == LIMITE_VITESSE || player1.carte[carte_choisie].valeur == PANNE_ESSENCE || player1.carte[carte_choisie].valeur == CREVAISON || player1.carte[carte_choisie].valeur == ACCIDENT){
+		player2.etat = 0;
+	}
+
+	/* si la carte leve l'interdiction */
+	if (player1.carte[carte_choisie].valeur == FEU_VERT || player1.carte[carte_choisie].valeur == FIN_LIMITE || player1.carte[carte_choisie].valeur == FIN_PANNE || player1.carte[carte_choisie].valeur == FIN_CREVAISON || player1.carte[carte_choisie].valeur == FIN_ACCIDENT){
+		player1.etat = 1;
+	}
+
+	/* */
+	if (player1.carte[carte_choisie].valeur == 25){
+		player1.bornes += 25;
+	}
+
+	if (player1.carte[carte_choisie].valeur == 50){
+		player1.bornes += 50;
+	}
+
+	if (player1.carte[carte_choisie].valeur == 75){
+		player1.bornes += 75;
+	}
+
+	if (player1.carte[carte_choisie].valeur == 100){
+		player1.bornes += 100;
+	}
+
+	if (player1.carte[carte_choisie].valeur == 200){
+		player1.bornes += 200;
+	}
+
 	
-	// ENLEVER LA CARTE UTILISER
+	retirer_carte(player1, tab_pioche, carte_choisie);	
 	
-	// CHANGE LE TOUR
-	
-	
-	return player;
+	return player1;
 }
 
 void premiere_carte(struct joueur_s player, struct pioche_s tab_pioche){
