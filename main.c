@@ -75,17 +75,64 @@ int main()
 
 	system("clear"); /* permet d'effacer tous le terminal pour une belle interface */
 
+	int carte_choisie;
 
     while (!est_fini(joueur1) || !est_fini(joueur2)){
             if (qui_le_tour == P1){
 				printf("Tour du joueur 1\n");
-                jeux(joueur1, joueur2, pioche);
+				/* pioche une carte avant de jouer */
+                ajouter_carte(joueur1.carte, pioche);
+				/* saisie utilisateur*/
+				affichage_carte(joueur1.carte); /* affiche les cartes du joueur */
+				printf("Quelle carte souhaitez vous utiliser ? (0-6)\n");
+				scanf("%d", &carte_choisie);
+				/* si la carte est une interdiction */
+				if (joueur1.carte[carte_choisie].valeur == FEU_ROUGE || joueur1.carte[carte_choisie].valeur == LIMITE_VITESSE || joueur1.carte[carte_choisie].valeur == PANNE_ESSENCE || joueur1.carte[carte_choisie].valeur == CREVAISON || joueur1.carte[carte_choisie].valeur == ACCIDENT){
+					joueur2.etat = 0;
+				}
+				/* si la carte leve l'interdiction */
+				if (joueur1.carte[carte_choisie].valeur == FEU_VERT || joueur1.carte[carte_choisie].valeur == FIN_LIMITE || joueur1.carte[carte_choisie].valeur == FIN_PANNE || joueur1.carte[carte_choisie].valeur == FIN_CREVAISON || joueur1.carte[carte_choisie].valeur == FIN_ACCIDENT){
+					joueur1.etat = 1;
+				}
+				/* carte borne pour avancer */
+				if (joueur1.carte[carte_choisie].valeur == 25 || joueur1.carte[carte_choisie].valeur == 50 || joueur1.carte[carte_choisie].valeur == 75 || joueur1.carte[carte_choisie].valeur == 100 || joueur1.carte[carte_choisie].valeur == 200){
+					ajout_borne(joueur1.bornes, joueur1.carte[carte_choisie].valeur);
+				}				
+				/* retire la carte de la main du joueur */
+				retirer_carte(joueur1.carte, carte_choisie);
+				/* affiche la progression du joueur */
+				affichage_progression(joueur1);
+				/* verifie si le joueur a atteint 1000 bornes */
                 est_fini(joueur1);
+			 	/* change le tour */
                 qui_le_tour = P2; 
             } else if (qui_le_tour == P2){
 				printf("Tour du joueur 2\n");
-                jeux(joueur2, joueur1, pioche);
+				/* pioche une carte avant de jouer */
+                ajouter_carte(joueur2.carte, pioche);
+				/* saisie utilisateur*/
+				affichage_carte(joueur2.carte); /* affiche les cartes du joueur */
+				printf("Quelle carte souhaitez vous utiliser ? (0-6)\n");
+				scanf("%d", &carte_choisie);
+				/* si la carte est une interdiction */
+				if (joueur2.carte[carte_choisie].valeur == FEU_ROUGE || joueur2.carte[carte_choisie].valeur == LIMITE_VITESSE || joueur2.carte[carte_choisie].valeur == PANNE_ESSENCE || joueur2.carte[carte_choisie].valeur == CREVAISON || joueur2.carte[carte_choisie].valeur == ACCIDENT){
+					joueur1.etat = 0;
+				}
+				/* si la carte leve l'interdiction */
+				if (joueur2.carte[carte_choisie].valeur == FEU_VERT || joueur2.carte[carte_choisie].valeur == FIN_LIMITE || joueur2.carte[carte_choisie].valeur == FIN_PANNE || joueur2.carte[carte_choisie].valeur == FIN_CREVAISON || joueur2.carte[carte_choisie].valeur == FIN_ACCIDENT){
+					joueur2.etat = 1;
+				}
+				/* carte borne pour avancer */
+				if (joueur2.carte[carte_choisie].valeur == 25 || joueur2.carte[carte_choisie].valeur == 50 || joueur2.carte[carte_choisie].valeur == 75 || joueur2.carte[carte_choisie].valeur == 100 || joueur2.carte[carte_choisie].valeur == 200){
+					ajout_borne(joueur2.bornes, joueur2.carte[carte_choisie].valeur);
+				}				
+				/* retire la carte de la main du joueur */
+				retirer_carte(joueur2.carte, carte_choisie);
+				/* affiche la progression du joueur */
+				affichage_progression(joueur2);
+				/* verifie si le joueur a atteint 1000 bornes */
                 est_fini(joueur2);
+			 	/* change le tour */
                 qui_le_tour = P1;
             }
     }
@@ -161,37 +208,6 @@ void init_pioche(struct carte pioche[102]){
 		}
 		
 	}
-}
-
-void jeux(struct joueur_s player1, struct joueur_s player2, struct pioche_s tab_pioche){
-	int carte_choisie;
-
-	/* pioche une carte avant de joueur */
-	ajouter_carte(player1.carte, tab_pioche);	
-
-	/* saisie utilisateur */
-	affichage_carte(player1.carte); /* affiche les cartes du joueur*/
-	printf("Quelle carte souhaitez vous utiliser ?\n");
-	scanf("%d", &carte_choisie);
-
-	retirer_carte(player1.carte, carte_choisie);
-
-	/* si la carte est une interdiction */
-	if (player1.carte[carte_choisie].valeur == FEU_ROUGE || player1.carte[carte_choisie].valeur == LIMITE_VITESSE || player1.carte[carte_choisie].valeur == PANNE_ESSENCE || player1.carte[carte_choisie].valeur == CREVAISON || player1.carte[carte_choisie].valeur == ACCIDENT){
-		player2.etat = 0;
-	}
-
-	/* si la carte leve l'interdiction */
-	if (player1.carte[carte_choisie].valeur == FEU_VERT || player1.carte[carte_choisie].valeur == FIN_LIMITE || player1.carte[carte_choisie].valeur == FIN_PANNE || player1.carte[carte_choisie].valeur == FIN_CREVAISON || player1.carte[carte_choisie].valeur == FIN_ACCIDENT){
-		player1.etat = 1;
-	}
-
-	/* carte borne pour avancer */
-	if (player1.carte[carte_choisie].valeur == 25 || player1.carte[carte_choisie].valeur == 50 || player1.carte[carte_choisie].valeur == 75 || player1.carte[carte_choisie].valeur == 100 || player1.carte[carte_choisie].valeur == 200){
-		ajout_borne(player1.bornes, player1.carte[carte_choisie].valeur);
-	}
-
-	affichage_progression(player1);
 }
 
 void premiere_carte(struct carte carte_joueur[7], struct pioche_s pioche){
