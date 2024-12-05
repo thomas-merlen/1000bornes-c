@@ -280,9 +280,15 @@ void affichage_progression(struct joueur_s player){
 void affichage_carte(struct carte carte_joueur[7]){
         int i; /* variable de boucle */
         
-        for (i = 0; i < 7; i++){
-              printf("%s (%d), ", carte_joueur[i].nom, i);
-        }       
+		if (carte_joueur[i].valeur == 25 || carte_joueur[i].valeur == 50 || carte_joueur[i].valeur == 75 || carte_joueur[i].valeur == 100 || carte_joueur[i].valeur == 200){
+			for (i = 0; i < 7; i++){
+				printf("%s %d (%d), ", carte_joueur[i].nom, carte_joueur[i].valeur, i);
+			}
+		} else {
+			for (i = 0; i < 7; i++){
+				printf("%s (%d), ", carte_joueur[i].nom, i);
+			}
+		}     
 }
 
 int ajout_borne(int player_borne, int n){
