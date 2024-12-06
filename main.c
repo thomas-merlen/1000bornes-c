@@ -45,7 +45,7 @@ void jeux(struct joueur_s player1, struct joueur_s player2, struct pioche_s tab_
 void premiere_carte(struct carte carte_joueur[7], struct pioche_s tab_pioche); /* attribue les 6 premiere carte aux joueurs au début de la partie */
 void ajouter_carte(struct carte carte_joueur[7], struct pioche_s pioche); /* donne une carte a un joueur a chaque debut de tour */
 void retirer_carte(struct carte carte_joueur[7], int indice);
-void affichage_progression(struct joueur_s player); /* affiche la progression des joueurs et s'ils ont un malus ou non avant chaque tour */
+void affichage_progression(int player_bornes, int player_etat); /* affiche la progression des joueurs et s'ils ont un malus ou non avant chaque tour */
 void affichage_carte(struct carte carte_joueur[7]); /* affiche la main du joueur avant chaque tour */
 int ajout_borne(int player_borne, int n); /* ajoute n borne au joueurs */ // n = carte.valeur quand une carte est une carte borne
 int changer_etat(int player_etat); /* change l'etat du joueur pour lui permettre de l'avancer ou le stopper */
@@ -101,11 +101,12 @@ int main()
 				/* retire la carte de la main du joueur */
 				retirer_carte(joueur1.carte, carte_choisie);
 				/* affiche la progression du joueur */
-				affichage_progression(joueur1);
+				affichage_progression(joueur1.bornes, joueur1.etat);
 				/* verifie si le joueur a atteint 1000 bornes */
                 est_fini(joueur1);
 			 	/* change le tour */
                 qui_le_tour = P2; 
+				
             } else if (qui_le_tour == P2){
 				printf("Tour du joueur 2\n");
 				/* pioche une carte avant de jouer */
@@ -129,7 +130,7 @@ int main()
 				/* retire la carte de la main du joueur */
 				retirer_carte(joueur2.carte, carte_choisie);
 				/* affiche la progression du joueur */
-				affichage_progression(joueur2);
+				affichage_progression(joueur2.bornes, joueur2.etat);
 				/* verifie si le joueur a atteint 1000 bornes */
                 est_fini(joueur2);
 			 	/* change le tour */
@@ -249,35 +250,35 @@ void retirer_carte(struct carte carte_joueur[7], int indice){
         
         
 
-void affichage_progression(struct joueur_s player){
+void affichage_progression(int player_bornes, int player_etat){
         char *etat_joueur;
         
-        if (player.etat){
+        if (player_etat){
                 etat_joueur = "Vous pouvez avancer !";
-        } else if (!player.etat){
+        } else if (!player_etat){
                 etat_joueur = "Vous êtes bloquer, posez la carte nécessaire !";
         }
 
-		if (player.bornes >= 0 && player.bornes <= 100){
-			printf("|--------- %dkm %s\n", player.bornes, etat_joueur);
-		} else if (player.bornes > 100 && player.bornes <= 200){
-				printf("||-------- %dkm %s\n", player.bornes, etat_joueur);
-		} else if (player.bornes > 200 && player.bornes <= 300){
-				printf("|||------- %dkm %s\n", player.bornes, etat_joueur);
-		} else if (player.bornes > 300 && player.bornes <= 400){
-				printf("||||------ %dkm %s\n", player.bornes, etat_joueur);
-		} else if (player.bornes > 400 && player.bornes <= 500){
-				printf("|||||----- %dkm %s\n", player.bornes, etat_joueur);
-		} else if (player.bornes > 500 && player.bornes <= 600){
-				printf("||||||---- %dkm %s\n", player.bornes, etat_joueur);
-		} else if (player.bornes > 600 && player.bornes <= 700){
-				printf("|||||||-- %dkm %s\n", player.bornes, etat_joueur);
-		} else if (player.bornes > 700 && player.bornes <= 800){
-				printf("||||||||-- %dkm %s\n", player.bornes, etat_joueur);
-		} else if (player.bornes > 800 && player.bornes <= 900){
-				printf("|||||||||- %dkm %s\n", player.bornes, etat_joueur);
-		} else if (player.bornes >= 1000){
-				printf("|||||||||| %dkm %s\n Bravo vous avez gagner !\n", player.bornes, etat_joueur);
+		if (player_bornes >= 0 && player_bornes <= 100){
+			printf("|--------- %dkm %s\n", player_bornes, etat_joueur);
+		} else if (player_bornes > 100 && player_bornes <= 200){
+				printf("||-------- %dkm %s\n", player_bornes, etat_joueur);
+		} else if (player_bornes > 200 && player_bornes <= 300){
+				printf("|||------- %dkm %s\n", player_bornes, etat_joueur);
+		} else if (player_bornes > 300 && player_bornes <= 400){
+				printf("||||------ %dkm %s\n", player_bornes, etat_joueur);
+		} else if (player_bornes > 400 && player_bornes <= 500){
+				printf("|||||----- %dkm %s\n", player_bornes, etat_joueur);
+		} else if (player_bornes > 500 && player_bornes <= 600){
+				printf("||||||---- %dkm %s\n", player_bornes, etat_joueur);
+		} else if (player_bornes > 600 && player_bornes <= 700){
+				printf("|||||||-- %dkm %s\n", player_bornes, etat_joueur);
+		} else if (player_bornes > 700 && player_bornes <= 800){
+				printf("||||||||-- %dkm %s\n", player_bornes, etat_joueur);
+		} else if (player_bornes > 800 && player_bornes <= 900){
+				printf("|||||||||- %dkm %s\n", player_bornes, etat_joueur);
+		} else if (player_bornes >= 1000){
+				printf("|||||||||| %dkm %s\n Bravo vous avez gagner !\n", player_bornes, etat_joueur);
 			}       
 }
 
