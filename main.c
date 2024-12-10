@@ -48,6 +48,7 @@ void ajouter_carte(struct carte carte_joueur[7], struct pioche_s pioche); /* don
 void retirer_carte(struct carte carte_joueur[7], int indice);
 void affichage_progression(int player_bornes, int player_etat); /* affiche la progression des joueurs et s'ils ont un malus ou non avant chaque tour */
 void affichage_carte(struct carte carte_joueur[7]); /* affiche la main du joueur avant chaque tour */
+void affichage_interdiction(int interdiction);
 int ajout_borne(int player_borne, int n); /* ajoute n borne au joueurs */ // n = carte.valeur quand une carte est une carte borne
 int changer_etat(int player_etat); /* change l'etat du joueur pour lui permettre de l'avancer ou le stopper */
 int est_fini(struct joueur_s player); /* regarde si la partie est fini avant chaque changement de joueur */
@@ -85,6 +86,8 @@ int main()
     while (!est_fini(joueur1) || !est_fini(joueur2)){
             if (qui_le_tour == P1){
 				printf("Tour du joueur 1\n");
+
+				affichage_interdiction(joueur1.interdiction);
 
 				/* pioche une carte avant de jouer */
                 ajouter_carte(joueur1.carte, pioche);
@@ -124,6 +127,9 @@ int main()
 				
             } else if (qui_le_tour == P2){
 				printf("Tour du joueur 2\n");
+
+				affichage_interdiction(joueur2.interdiction);
+
 				/* pioche une carte avant de jouer */
                 ajouter_carte(joueur2.carte, pioche);
 
@@ -135,6 +141,7 @@ int main()
 				/* si la carte est une interdiction */
 				if (joueur2.carte[carte_choisie].valeur == FEU_ROUGE || joueur2.carte[carte_choisie].valeur == LIMITE_VITESSE || joueur2.carte[carte_choisie].valeur == PANNE_ESSENCE || joueur2.carte[carte_choisie].valeur == CREVAISON || joueur2.carte[carte_choisie].valeur == ACCIDENT){
 					joueur1.etat = 0;
+					joueur1.interdiction = joueur1.carte[carte_choisie].valeur;
 				}
 
 				/* si la carte supprime une interdiction */
@@ -312,6 +319,19 @@ void affichage_carte(struct carte carte_joueur[7]){
 		}
 }     
 
+void affichage_interdiction(int interdiction){
+	if (interdiction == FEU_ROUGE){
+		printf("Vous êtes arreter au feu rouge, déclencher le feu vert !\n");
+	} else if (interdiction == LIMITE_VITESSE){
+		printf("Vous êtes fait prendre par les flics, en allez vous avec une fin de limite de vitesse !\n");
+	} else if (interdiction == PANNE_ESSENCE){
+		printf("Arrêtez vous à la station essence, vous êtes à sec !\n");
+	} else if (interdiction == CREVAISON){
+		printf("Vous avez crever, monter votre roue de secours !\n");
+	} else if (interdiction == ACCIDENT){
+		printf("Vous avez eu un accident ! Tous vas bien ? Faite réparer au plus vite votre voiture ! \n");
+	}
+}
 
 int ajout_borne(int player_borne, int n){
 	return player_borne + n;
