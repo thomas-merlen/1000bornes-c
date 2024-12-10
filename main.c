@@ -96,7 +96,8 @@ int main()
 				}
 				/* carte borne pour avancer */
 				if (joueur1.carte[carte_choisie].valeur == 25 || joueur1.carte[carte_choisie].valeur == 50 || joueur1.carte[carte_choisie].valeur == 75 || joueur1.carte[carte_choisie].valeur == 100 || joueur1.carte[carte_choisie].valeur == 200){
-					ajout_borne(joueur1.bornes, joueur1.carte[carte_choisie].valeur);
+					// ajout_borne(joueur1.bornes, joueur1.carte[carte_choisie].valeur);
+					joueur1.bornes = ajout_borne(joueur1.bornes, joueur1.carte[carte_choisie].valeur);
 				}				
 				/* retire la carte de la main du joueur */
 				retirer_carte(joueur1.carte, carte_choisie);
@@ -125,7 +126,8 @@ int main()
 				}
 				/* carte borne pour avancer */
 				if (joueur2.carte[carte_choisie].valeur == 25 || joueur2.carte[carte_choisie].valeur == 50 || joueur2.carte[carte_choisie].valeur == 75 || joueur2.carte[carte_choisie].valeur == 100 || joueur2.carte[carte_choisie].valeur == 200){
-					ajout_borne(joueur2.bornes, joueur2.carte[carte_choisie].valeur);
+					// ajout_borne(joueur2.bornes, joueur2.carte[carte_choisie].valeur);
+					joueur2.bornes = ajout_borne(joueur2.bornes, joueur2.carte[carte_choisie].valeur);
 				}				
 				/* retire la carte de la main du joueur */
 				retirer_carte(joueur2.carte, carte_choisie);
@@ -144,11 +146,11 @@ int main()
 
 /* definitions des fonctions utilisateurs */
 void init_pioche(struct carte pioche[102]){
-	struct carte borne25 = {"Ajout Borne 25 kilomètres", 0};
-	struct carte borne50 = {"Ajout Borne 50 kilomètres", 0};
-	struct carte borne75 = {"Ajout Borne 75 kilomètres", 0};
-	struct carte borne100 = {"Ajout Borne 100 kilomètres", 0};
-	struct carte borne200 = {"Ajout Borne 200 kilomètres", 0};
+	struct carte borne25 = {"Ajout Borne 25 kilomètres", 25};
+	struct carte borne50 = {"Ajout Borne 50 kilomètres", 50};
+	struct carte borne75 = {"Ajout Borne 75 kilomètres", 75};
+	struct carte borne100 = {"Ajout Borne 100 kilomètres", 100};
+	struct carte borne200 = {"Ajout Borne 200 kilomètres", 200};
 	struct carte fin_limite = {"Fin de la limite de vitesse", FIN_LIMITE};
 	struct carte ajout_essence = {"Ajout de l'essence", FIN_PANNE}; 
 	struct carte roue_secours = {"Equipe une nouvelle roue", FIN_CREVAISON};
@@ -291,7 +293,7 @@ void affichage_carte(struct carte carte_joueur[7]){
 
 
 int ajout_borne(int player_borne, int n){
-	return player_borne + n; 
+	return player_borne + n;
 }
 
 int changer_etat(int player_etat){
