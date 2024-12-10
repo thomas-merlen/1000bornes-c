@@ -33,6 +33,7 @@ struct joueur_s{
 	int bornes; /* stock le nombre de bornes fait par le joueur (init à 0 par défaut)*/ 
 	struct carte carte[7]; /* tableau stockant les cartes que le joueur possède */
 	int tour; /* stock le nombre de tour (init à 0 par défaut)*/
+	int interdiction; /* stock la carte d'interdiction */
 };
 
 struct pioche_s{
@@ -61,14 +62,18 @@ int main()
 	init_pioche(pioche.tab_pioche);
 	
 	struct carte vide = {"0", 0};
+
 	struct carte carte1[7] = {vide, vide, vide, vide, vide, vide, vide};
 	struct carte carte2[7] = {vide, vide, vide, vide, vide, vide, vide};
       
-	struct joueur_s joueur1 = {0, 0, carte1[7], 0};
-	struct joueur_s joueur2 = {0, 0, carte2[7], 0}; 
+	struct joueur_s joueur1 = {0, 0, carte1[7], 0, FEU_ROUGE};
+	struct joueur_s joueur2 = {0, 0, carte2[7], 0, FEU_ROUGE}; 
 	
 	premiere_carte(joueur1.carte, pioche);
 	premiere_carte(joueur2.carte, pioche);
+
+	joueur1.interdiction = FEU_ROUGE;
+	joueur2.interdiction = FEU_ROUGE;
 
     int qui_le_tour; 
     qui_le_tour = P1;
@@ -86,16 +91,17 @@ int main()
 
 				/* saisie utilisateur*/
 				affichage_carte(joueur1.carte); /* affiche les cartes du joueur */
-				printf("Quelle carte souhaitez vous utiliser ? (0-6)\n");
+				printf("Quelle carte souhaitez vous utiliser ? (0-6) : ");
 				scanf("%d", &carte_choisie);
 
 				/* si la carte est une interdiction */
 				if (joueur1.carte[carte_choisie].valeur == FEU_ROUGE || joueur1.carte[carte_choisie].valeur == LIMITE_VITESSE || joueur1.carte[carte_choisie].valeur == PANNE_ESSENCE || joueur1.carte[carte_choisie].valeur == CREVAISON || joueur1.carte[carte_choisie].valeur == ACCIDENT){
 					joueur2.etat = 0;
+					joueur2.interdiction = joueur1.carte[carte_choisie].valeur;
 				}
 
-				/* si la carte leve l'interdiction */
-				if (joueur1.carte[carte_choisie].valeur == FEU_VERT || joueur1.carte[carte_choisie].valeur == FIN_LIMITE || joueur1.carte[carte_choisie].valeur == FIN_PANNE || joueur1.carte[carte_choisie].valeur == FIN_CREVAISON || joueur1.carte[carte_choisie].valeur == FIN_ACCIDENT){
+				/* si la carte supprime une interdiction */
+				if ((joueur1.carte[carte_choisie].valeur == FEU_VERT && joueur1.interdiction == FEU_ROUGE) || (joueur1.carte[carte_choisie].valeur == FIN_LIMITE && joueur1.interdiction == LIMITE_VITESSE) || (joueur1.carte[carte_choisie].valeur == FIN_PANNE && joueur1.interdiction == PANNE_ESSENCE) || (joueur1.carte[carte_choisie].valeur == FIN_CREVAISON && joueur1.interdiction == CREVAISON) || (joueur1.carte[carte_choisie].valeur == FIN_ACCIDENT && joueur1.interdiction == ACCIDENT)){
 					joueur1.etat = 1;
 				}
 
@@ -131,8 +137,8 @@ int main()
 					joueur1.etat = 0;
 				}
 
-				/* si la carte leve l'interdiction */
-				if (joueur2.carte[carte_choisie].valeur == FEU_VERT || joueur2.carte[carte_choisie].valeur == FIN_LIMITE || joueur2.carte[carte_choisie].valeur == FIN_PANNE || joueur2.carte[carte_choisie].valeur == FIN_CREVAISON || joueur2.carte[carte_choisie].valeur == FIN_ACCIDENT){
+				/* si la carte supprime une interdiction */
+				if ((joueur2.carte[carte_choisie].valeur == FEU_VERT && joueur2.interdiction == FEU_ROUGE) || (joueur2.carte[carte_choisie].valeur == FIN_LIMITE && joueur2.interdiction == LIMITE_VITESSE) || (joueur2.carte[carte_choisie].valeur == FIN_PANNE && joueur2.interdiction == PANNE_ESSENCE) || (joueur2.carte[carte_choisie].valeur == FIN_CREVAISON && joueur2.interdiction == CREVAISON) || (joueur2.carte[carte_choisie].valeur == FIN_ACCIDENT && joueur2.interdiction == ACCIDENT)){
 					joueur2.etat = 1;
 				}
 
