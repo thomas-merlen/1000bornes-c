@@ -82,6 +82,7 @@ int main()
 	system("clear"); /* permet d'effacer tous le terminal pour une belle interface */
 
 	int carte_choisie;
+	int carte_debarasser;
 
     while (!est_fini(joueur1) || !est_fini(joueur2)){
             if (qui_le_tour == P1){
@@ -94,28 +95,37 @@ int main()
 
 				/* saisie utilisateur*/
 				affichage_carte(joueur1.carte); /* affiche les cartes du joueur */
-				printf("Quelle carte souhaitez vous utiliser ? (0-6) : ");
+				printf("Quelle carte souhaitez vous utiliser ? (0-6) (7 si vous ne pouvez pas jouer): ");
 				scanf("%d", &carte_choisie);
 
-				/* si la carte est une interdiction */
-				if (joueur1.carte[carte_choisie].valeur == FEU_ROUGE || joueur1.carte[carte_choisie].valeur == LIMITE_VITESSE || joueur1.carte[carte_choisie].valeur == PANNE_ESSENCE || joueur1.carte[carte_choisie].valeur == CREVAISON || joueur1.carte[carte_choisie].valeur == ACCIDENT){
-					joueur2.etat = 0;
-					joueur2.interdiction = joueur1.carte[carte_choisie].valeur;
+				if (carte_choisie <= 6){
+
+					/* si la carte est une interdiction */
+					if (joueur1.carte[carte_choisie].valeur == FEU_ROUGE || joueur1.carte[carte_choisie].valeur == LIMITE_VITESSE || joueur1.carte[carte_choisie].valeur == PANNE_ESSENCE || joueur1.carte[carte_choisie].valeur == CREVAISON || joueur1.carte[carte_choisie].valeur == ACCIDENT){
+						joueur2.etat = 0;
+						joueur2.interdiction = joueur1.carte[carte_choisie].valeur;
+					}
+
+					/* si la carte supprime une interdiction */
+					if ((joueur1.carte[carte_choisie].valeur == FEU_VERT && joueur1.interdiction == FEU_ROUGE) || (joueur1.carte[carte_choisie].valeur == FIN_LIMITE && joueur1.interdiction == LIMITE_VITESSE) || (joueur1.carte[carte_choisie].valeur == FIN_PANNE && joueur1.interdiction == PANNE_ESSENCE) || (joueur1.carte[carte_choisie].valeur == FIN_CREVAISON && joueur1.interdiction == CREVAISON) || (joueur1.carte[carte_choisie].valeur == FIN_ACCIDENT && joueur1.interdiction == ACCIDENT)){
+						joueur1.etat = 1;
+						joueur1.interdiction = FALSE;
+					}
+
+					/* carte borne pour avancer */
+					if ((joueur1.carte[carte_choisie].valeur == 25 || joueur1.carte[carte_choisie].valeur == 50 || joueur1.carte[carte_choisie].valeur == 75 || joueur1.carte[carte_choisie].valeur == 100 || joueur1.carte[carte_choisie].valeur == 200) && joueur1.etat == 1){
+						joueur1.bornes = ajout_borne(joueur1.bornes, joueur1.carte[carte_choisie].valeur);
+					}			
+
+					/* retire la carte de la main du joueur */
+					retirer_carte(joueur1.carte, carte_choisie);					
+
+				} else if (carte_choisie == 7){
+					printf("Choissisez une carte à enlever de votre main pour la remplacer (0-6) : ");
+					scanf("%d", &carte_debarasser);
+
+					retirer_carte(joueur1.carte, carte_debarasser);
 				}
-
-				/* si la carte supprime une interdiction */
-				if ((joueur1.carte[carte_choisie].valeur == FEU_VERT && joueur1.interdiction == FEU_ROUGE) || (joueur1.carte[carte_choisie].valeur == FIN_LIMITE && joueur1.interdiction == LIMITE_VITESSE) || (joueur1.carte[carte_choisie].valeur == FIN_PANNE && joueur1.interdiction == PANNE_ESSENCE) || (joueur1.carte[carte_choisie].valeur == FIN_CREVAISON && joueur1.interdiction == CREVAISON) || (joueur1.carte[carte_choisie].valeur == FIN_ACCIDENT && joueur1.interdiction == ACCIDENT)){
-					joueur1.etat = 1;
-					joueur1.interdiction = FALSE;
-				}
-
-				/* carte borne pour avancer */
-				if ((joueur1.carte[carte_choisie].valeur == 25 || joueur1.carte[carte_choisie].valeur == 50 || joueur1.carte[carte_choisie].valeur == 75 || joueur1.carte[carte_choisie].valeur == 100 || joueur1.carte[carte_choisie].valeur == 200) && joueur1.etat == 1){
-					joueur1.bornes = ajout_borne(joueur1.bornes, joueur1.carte[carte_choisie].valeur);
-				}			
-
-				/* retire la carte de la main du joueur */
-				retirer_carte(joueur1.carte, carte_choisie);
 
 				/* affiche la progression du joueur */
 				affichage_progression(joueur1.bornes, joueur1.etat);
@@ -139,24 +149,33 @@ int main()
 				printf("Quelle carte souhaitez vous utiliser ? (0-6)\n");
 				scanf("%d", &carte_choisie);
 
-				/* si la carte est une interdiction */
-				if (joueur2.carte[carte_choisie].valeur == FEU_ROUGE || joueur2.carte[carte_choisie].valeur == LIMITE_VITESSE || joueur2.carte[carte_choisie].valeur == PANNE_ESSENCE || joueur2.carte[carte_choisie].valeur == CREVAISON || joueur2.carte[carte_choisie].valeur == ACCIDENT){
-					joueur1.etat = 0;
-					joueur1.interdiction = joueur1.carte[carte_choisie].valeur;
+				if (carte_choisie <= 6){
+
+					/* si la carte est une interdiction */
+					if (joueur2.carte[carte_choisie].valeur == FEU_ROUGE || joueur2.carte[carte_choisie].valeur == LIMITE_VITESSE || joueur2.carte[carte_choisie].valeur == PANNE_ESSENCE || joueur2.carte[carte_choisie].valeur == CREVAISON || joueur2.carte[carte_choisie].valeur == ACCIDENT){
+						joueur1.etat = 0;
+						joueur1.interdiction = joueur1.carte[carte_choisie].valeur;
+					}
+
+					/* si la carte supprime une interdiction */
+					if ((joueur2.carte[carte_choisie].valeur == FEU_VERT && joueur2.interdiction == FEU_ROUGE) || (joueur2.carte[carte_choisie].valeur == FIN_LIMITE && joueur2.interdiction == LIMITE_VITESSE) || (joueur2.carte[carte_choisie].valeur == FIN_PANNE && joueur2.interdiction == PANNE_ESSENCE) || (joueur2.carte[carte_choisie].valeur == FIN_CREVAISON && joueur2.interdiction == CREVAISON) || (joueur2.carte[carte_choisie].valeur == FIN_ACCIDENT && joueur2.interdiction == ACCIDENT)){
+						joueur2.etat = 1;
+					}
+
+					/* carte borne pour avancer */
+					if ((joueur2.carte[carte_choisie].valeur == 25 || joueur2.carte[carte_choisie].valeur == 50 || joueur2.carte[carte_choisie].valeur == 75 || joueur2.carte[carte_choisie].valeur == 100 || joueur2.carte[carte_choisie].valeur == 200) && joueur2.etat == 1){
+						joueur2.bornes = ajout_borne(joueur2.bornes, joueur2.carte[carte_choisie].valeur);
+					}						
+
+					/* retire la carte de la main du joueur */
+					retirer_carte(joueur2.carte, carte_choisie);
+
+				} else if (carte_choisie == 7){
+					printf("Choissisez une carte à enlever de votre main pour la remplacer (0-6) : ");
+					scanf("%d", &carte_debarasser);
+
+					retirer_carte(joueur2.carte, carte_debarasser);
 				}
-
-				/* si la carte supprime une interdiction */
-				if ((joueur2.carte[carte_choisie].valeur == FEU_VERT && joueur2.interdiction == FEU_ROUGE) || (joueur2.carte[carte_choisie].valeur == FIN_LIMITE && joueur2.interdiction == LIMITE_VITESSE) || (joueur2.carte[carte_choisie].valeur == FIN_PANNE && joueur2.interdiction == PANNE_ESSENCE) || (joueur2.carte[carte_choisie].valeur == FIN_CREVAISON && joueur2.interdiction == CREVAISON) || (joueur2.carte[carte_choisie].valeur == FIN_ACCIDENT && joueur2.interdiction == ACCIDENT)){
-					joueur2.etat = 1;
-				}
-
-				/* carte borne pour avancer */
-				if ((joueur2.carte[carte_choisie].valeur == 25 || joueur2.carte[carte_choisie].valeur == 50 || joueur2.carte[carte_choisie].valeur == 75 || joueur2.carte[carte_choisie].valeur == 100 || joueur2.carte[carte_choisie].valeur == 200) && joueur2.etat == 1){
-					joueur2.bornes = ajout_borne(joueur2.bornes, joueur2.carte[carte_choisie].valeur);
-				}						
-
-				/* retire la carte de la main du joueur */
-				retirer_carte(joueur2.carte, carte_choisie);
 
 				/* affiche la progression du joueur */
 				affichage_progression(joueur2.bornes, joueur2.etat);
