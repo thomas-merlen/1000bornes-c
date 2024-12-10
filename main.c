@@ -45,10 +45,10 @@ void init_pioche(struct carte tab_pioche[102]); /* initialise le grand tableau a
 void jeux(struct joueur_s player1, struct joueur_s player2, struct pioche_s tab_pioche); /* gère la main du joueur au cours de la partie et s'occupe du changement de joueur */
 void premiere_carte(struct carte carte_joueur[7], struct pioche_s tab_pioche); /* attribue les 6 premiere carte aux joueurs au début de la partie */
 void ajouter_carte(struct carte carte_joueur[7], struct pioche_s pioche); /* donne une carte a un joueur a chaque debut de tour */
-void retirer_carte(struct carte carte_joueur[7], int indice);
+void retirer_carte(struct carte carte_joueur[7], int indice); /* retire une carte dans la main du joueur */
 void affichage_progression(int player_bornes, int player_etat); /* affiche la progression des joueurs et s'ils ont un malus ou non avant chaque tour */
 void affichage_carte(struct carte carte_joueur[7]); /* affiche la main du joueur avant chaque tour */
-void affichage_interdiction(int interdiction);
+void affichage_interdiction(int interdiction); /* affiche l'interdiction subit par le joueur */
 int ajout_borne(int player_borne, int n); /* ajoute n borne au joueurs */ // n = carte.valeur quand une carte est une carte borne
 int changer_etat(int player_etat); /* change l'etat du joueur pour lui permettre de l'avancer ou le stopper */
 int est_fini(struct joueur_s player); /* regarde si la partie est fini avant chaque changement de joueur */
@@ -144,7 +144,7 @@ int main()
 				/* pioche une carte avant de jouer */
                 ajouter_carte(joueur2.carte, pioche);
 
-				/* saisie utilisateur*/
+				/* saisie utilisateur */
 				affichage_carte(joueur2.carte); /* affiche les cartes du joueur */
 				printf("Quelle carte souhaitez vous utiliser ? (0-6)\n");
 				scanf("%d", &carte_choisie);
@@ -210,7 +210,7 @@ void init_pioche(struct carte pioche[102]){
 	struct carte feu_rouge = {"Met un feu rouge à un adversaure", FEU_ROUGE};
 	struct carte feu_vert = {"Vous permet de repartir sur la route", FEU_VERT};
 
-	int i;
+	int i; /* variable de boucle */
 	int n = 0;
 
 	for (i = 0; i<14; i++){
@@ -257,15 +257,13 @@ void init_pioche(struct carte pioche[102]){
 			pioche[n] = feu_vert;
 			n+=1;
 		}
-		
 	}
 }
 
 void premiere_carte(struct carte carte_joueur[7], struct pioche_s pioche){
         int taille_tab_carte = 102; 
 		int carte_choisi = 0;
-        int i, j; /* variable de boucle */
-        
+        int i, j; /* variables de boucle */
         
         for (i = 0; i < 7; i++){
                 carte_choisi = rand() % taille_tab_carte + 1; /* genere une carte aleatoire dans le tableau */
@@ -286,7 +284,7 @@ void ajouter_carte(struct carte carte_joueur[7], struct pioche_s pioche){
         carte_joueur[6] = pioche.tab_pioche[i];
         
         /* supprime la carte choisies */
-        for (i = carte_aleatoire; i < 102; i++){
+        for (i; i < 102; i++){
                       pioche.tab_pioche[i] = pioche.tab_pioche[i + 1];
         }
 }
@@ -298,8 +296,6 @@ void retirer_carte(struct carte carte_joueur[7], int indice){
 		carte_joueur[indice] = tmp;
 }
         
-        
-
 void affichage_progression(int player_bornes, int player_etat){
         char *etat_joueur;
 
