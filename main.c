@@ -57,6 +57,17 @@ int est_fini(int player_borne); /* regarde si la partie est fini avant chaque ch
 /* fonction principale */
 int main()
 {
+	/* demande le nom des joueurs */
+	char nom_joueur1[20];
+	char nom_joueur2[20]; 
+
+	printf("Joueur 1, quelle est votre nom ? : ");
+    scanf("%s", nom_joueur1);
+
+	printf("Joueur 2, quelle est votre nom ? : ");
+    scanf("%s", nom_joueur2);
+
+
 	/* gere l'aleatoire dans notre jeux */
 	srand(time(NULL));
     /* declaration et initialisation des variables */
@@ -92,7 +103,7 @@ int main()
     while (fini == FALSE){
             if (qui_le_tour == P1){
 				system("clear"); /* permet d'effacer tous le terminal pour une belle interface */
-				printf("Tour du joueur 1\n\n");
+				printf("Tour du joueur %s\n\n", nom_joueur1);
 
 				affichage_interdiction(joueur1.interdiction); /* affiche la progression du joueur */
 
@@ -146,7 +157,7 @@ int main()
 				
             } else if (qui_le_tour == P2){
 				system("clear"); /* permet d'effacer tous le terminal pour une belle interface */
-				printf("Tour du joueur 2\n\n");
+				printf("Tour du joueur %s\n\n", nom_joueur2);
 
 				affichage_interdiction(joueur2.interdiction);
 
