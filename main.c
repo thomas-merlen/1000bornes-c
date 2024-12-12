@@ -205,21 +205,21 @@ int main()
 
 /* definitions des fonctions utilisateurs */
 void init_pioche(struct carte pioche[102]){
-	struct carte borne25 = {"Ajout Borne 25 kilomètres", 25};
-	struct carte borne50 = {"Ajout Borne 50 kilomètres", 50};
-	struct carte borne75 = {"Ajout Borne 75 kilomètres", 75};
-	struct carte borne100 = {"Ajout Borne 100 kilomètres", 100};
-	struct carte borne200 = {"Ajout Borne 200 kilomètres", 200};
-	struct carte fin_limite = {"Fin de la limite de vitesse", FIN_LIMITE};
-	struct carte ajout_essence = {"Ajout de l'essence", FIN_PANNE}; 
-	struct carte roue_secours = {"Equipe une nouvelle roue", FIN_CREVAISON};
-	struct carte reparation = {"Répare le véhicule", FIN_ACCIDENT};
-	struct carte panne_essence = {"Permet qu'un véhicule adverse tombe en panne", PANNE_ESSENCE};
-	struct carte crevaison = {"Crève le pneu d'un adversaire", CREVAISON};
-	struct carte accident = {"Provoque un accident pour un adversaire", ACCIDENT};
-	struct carte limite_vitesse = {"Donne une limitation de vitesse à un adversaire", LIMITE_VITESSE}; 
-	struct carte feu_rouge = {"Met un feu rouge à un adversaure", FEU_ROUGE};
-	struct carte feu_vert = {"Vous permet de repartir sur la route", FEU_VERT};
+	struct carte borne25 = {"Borne 25 km - Ajoute 25 kilomètres", 25};
+	struct carte borne50 = {"Borne 50 km - Ajoute 50 kilomètres", 50};
+	struct carte borne75 = {"Borne 75 km - Ajoute 75 kilomètres", 75};
+	struct carte borne100 = {"Borne 100 km - Ajoute 100 kilomètres", 100};
+	struct carte borne200 = {"Borne 200 km - Ajoute 200 kilomètres", 200};
+	struct carte fin_limite = {"Fin Limite de Vitesse - Met fin au contrôle de police", FIN_LIMITE};
+	struct carte ajout_essence = {"Plein Carburant - Ajoute du gasoil", FIN_PANNE}; 
+	struct carte roue_secours = {"Roue de secours - Equipe une nouvelle roue", FIN_CREVAISON};
+	struct carte reparation = {"Répare le véhicule - Passage chez Norauto ", FIN_ACCIDENT};
+	struct carte panne_essence = {"Siphone le réservoir - Permet que le véhicule adverse tombe en panne", PANNE_ESSENCE};
+	struct carte crevaison = {"Crevaison - Crève le pneu d'un adversaire", CREVAISON};
+	struct carte accident = {"Accident - Provoque un accident pour l'adversaire", ACCIDENT};
+	struct carte limite_vitesse = {"Limite de vitesse - Le véhicule adverse doit subir un contrôle de police", LIMITE_VITESSE}; 
+	struct carte feu_rouge = {"Feu Rouge - Immobilise l'adversaire à un feu rouge", FEU_ROUGE};
+	struct carte feu_vert = {"Feu Vert - Vous permet de repartir sur la route, il était long ce feu", FEU_VERT};
 
 	int i; /* variable de boucle */
 	int n = 0;
