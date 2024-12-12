@@ -293,7 +293,7 @@ void ajouter_carte(struct carte carte_joueur[7], struct pioche_s pioche){
         carte_joueur[6] = pioche.tab_pioche[i];
         
         /* supprime la carte choisies */
-        for (i; i < 102; i++){
+        for (i = carte_aleatoire; i < 102; i++){
                       pioche.tab_pioche[i] = pioche.tab_pioche[i + 1];
         }
 }
@@ -306,8 +306,6 @@ void retirer_carte(struct carte carte_joueur[7], int indice){
 }
         
 void affichage_progression(int player_bornes, int player_etat){
-        char *etat_joueur;
-
 		if (player_bornes >= 0 && player_bornes <= 100){
 			printf("\n|--------- %dkm \n\n", player_bornes);
 		} else if (player_bornes > 100 && player_bornes <= 200){
