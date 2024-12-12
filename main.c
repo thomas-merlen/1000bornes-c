@@ -57,6 +57,7 @@ int est_fini(int player_borne); /* regarde si la partie est fini avant chaque ch
 /* fonction principale */
 int main()
 {
+	/* gere l'aleatoire dans notre jeux */
 	srand(time(NULL));
     /* declaration et initialisation des variables */
 	struct pioche_s pioche;
@@ -73,11 +74,12 @@ int main()
 	premiere_carte(joueur1.carte, pioche);
 	premiere_carte(joueur2.carte, pioche);
 
-	joueur1.interdiction = FEU_ROUGE;
+	/* les joueurs commencent au feu rouge */
+	joueur1.interdiction = FEU_ROUGE; 
 	joueur2.interdiction = FEU_ROUGE;
 
-    int qui_le_tour; 
-    qui_le_tour = P1;
+    int qui_le_tour; /* variable pour gerer le tour */
+    qui_le_tour = P1; /* le joueur 1 commence la partie */
 
 	system("clear"); /* permet d'effacer tous le terminal pour une belle interface */
 
@@ -280,7 +282,7 @@ void premiere_carte(struct carte carte_joueur[7], struct pioche_s pioche){
 				//printf("%d --", carte_joueur[i].valeur);
                 /* supprimer les cartes choisies du tableau */
                 for (j = carte_choisi; j < taille_tab_carte; j++){
-                        pioche.tab_pioche[j] = pioche.tab_pioche[j+1]; 
+                        pioche.tab_pioche[j] = pioche.tab_pioche[j+1]; /* on remplace la carte choisie par la carte suivante et on le fait pour toutes les cartes*/
                 }
                 taille_tab_carte--;
         }      
@@ -294,12 +296,12 @@ void ajouter_carte(struct carte carte_joueur[7], struct pioche_s pioche){
         
         /* supprime la carte choisies */
         for (i = carte_aleatoire; i < 102; i++){
-                      pioche.tab_pioche[i] = pioche.tab_pioche[i + 1];
+                      pioche.tab_pioche[i] = pioche.tab_pioche[i + 1]; /* on remplace la carte choisie par la carte suivante et on le fait pour toutes les cartes*/
         }
 }
 
 void retirer_carte(struct carte carte_joueur[7], int indice){
-        struct carte tmp;
+        struct carte tmp; /* variable temporaire */
         tmp = carte_joueur[6]; /* sauvegarde la derniere carte */
         carte_joueur[6] = carte_joueur[indice]; /* met en derniere position la carte a supprimer */
 		carte_joueur[indice] = tmp;
@@ -355,7 +357,6 @@ int ajout_borne(int player_borne, int n){
 }
 
 int changer_etat(int player_etat){
-	// 	joueur1.etat = changer_etat(joueur1.etat);
 	int n;
 	if (player_etat == 0){
 		n = 1;
