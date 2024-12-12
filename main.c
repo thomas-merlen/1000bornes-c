@@ -51,7 +51,7 @@ void affichage_carte(struct carte carte_joueur[7]); /* affiche la main du joueur
 void affichage_interdiction(int interdiction); /* affiche l'interdiction subit par le joueur */
 int ajout_borne(int player_borne, int n); /* ajoute n borne au joueurs */ // n = carte.valeur quand une carte est une carte borne
 int changer_etat(int player_etat); /* change l'etat du joueur pour lui permettre de l'avancer ou le stopper */
-int est_fini(struct joueur_s player); /* regarde si la partie est fini avant chaque changement de joueur */
+int est_fini(int player_borne); /* regarde si la partie est fini avant chaque changement de joueur */
 
 
 /* fonction principale */
@@ -84,7 +84,7 @@ int main()
 	int carte_choisie;
 	int carte_debarasser;
 
-    while (!est_fini(joueur1) || !est_fini(joueur2)){
+    while (!est_fini(joueur1.bornes) || !est_fini(joueur2.bornes)){
             if (qui_le_tour == P1){
 				printf("Tour du joueur 1\n");
 
@@ -131,7 +131,7 @@ int main()
 				affichage_progression(joueur1.bornes, joueur1.etat);
 
 				/* verifie si le joueur a atteint 1000 bornes */
-                est_fini(joueur1);
+                est_fini(joueur1.bornes);
 
 			 	/* change le tour */
                 qui_le_tour = P2; 
@@ -181,7 +181,7 @@ int main()
 				affichage_progression(joueur2.bornes, joueur2.etat);
 
 				/* verifie si le joueur a atteint 1000 bornes */
-                est_fini(joueur2);
+                est_fini(joueur2.bornes);
 				
 			 	/* change le tour */
                 qui_le_tour = P1;
@@ -359,8 +359,8 @@ int changer_etat(int player_etat){
 	return n;
 }
 
-int est_fini(struct joueur_s player){
-    if (player.bornes >= 1000){
+int est_fini(int player_borne){
+    if (player_borne >= 1000){
             return TRUE;
     } else {
             return FALSE;
