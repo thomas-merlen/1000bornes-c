@@ -67,9 +67,9 @@ int main()
 	printf("Joueur 2, quelle est votre nom ? : ");
     scanf("%s", nom_joueur2);
 
-
 	/* gere l'aleatoire dans notre jeux */
 	srand(time(NULL));
+	
     /* declaration et initialisation des variables */
 	struct pioche_s pioche;
 	init_pioche(pioche.tab_pioche);
