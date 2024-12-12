@@ -84,7 +84,10 @@ int main()
 	int carte_choisie;
 	int carte_debarasser;
 
-    while (!est_fini(joueur1.bornes) || !est_fini(joueur2.bornes)){
+	int fini;
+	fini = FALSE; 
+
+    while (fini == FALSE){
             if (qui_le_tour == P1){
 				system("clear"); /* permet d'effacer tous le terminal pour une belle interface */
 				printf("Tour du joueur 1\n\n");
@@ -131,7 +134,10 @@ int main()
 
 
 				/* verifie si le joueur a atteint 1000 bornes */
-                est_fini(joueur1.bornes);
+                if (est_fini(joueur1.bornes) == TRUE){
+					fini = TRUE;
+					affichage_progression(joueur1.bornes, joueur1.etat);
+				}
 
 			 	/* change le tour */
                 qui_le_tour = P2; 
@@ -181,7 +187,10 @@ int main()
 				}
 
 				/* verifie si le joueur a atteint 1000 bornes */
-                est_fini(joueur2.bornes);
+                if (est_fini(joueur2.bornes) == TRUE){
+					fini = TRUE;
+					affichage_progression(joueur2.bornes, joueur2.etat);
+				}
 				
 			 	/* change le tour */
                 qui_le_tour = P1;
