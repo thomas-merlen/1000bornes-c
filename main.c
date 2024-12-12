@@ -86,16 +86,18 @@ int main()
 
     while (!est_fini(joueur1.bornes) || !est_fini(joueur2.bornes)){
             if (qui_le_tour == P1){
-				printf("Tour du joueur 1\n");
+				system("clear"); /* permet d'effacer tous le terminal pour une belle interface */
+				printf("Tour du joueur 1\n\n");
 
-				affichage_interdiction(joueur1.interdiction);
+				affichage_interdiction(joueur1.interdiction); /* affiche la progression du joueur */
 
 				/* pioche une carte avant de jouer */
                 ajouter_carte(joueur1.carte, pioche);
 
 				/* saisie utilisateur*/
+				affichage_progression(joueur1.bornes, joueur1.etat);
 				affichage_carte(joueur1.carte); /* affiche les cartes du joueur */
-				printf("Quelle carte souhaitez vous utiliser ? (0-6) (7 si vous ne pouvez pas jouer): ");
+				printf("\nQuelle carte souhaitez vous utiliser ? (0-6) (7 si vous ne pouvez pas jouer): ");
 				scanf("%d", &carte_choisie);
 
 				if (carte_choisie <= 6){
@@ -127,8 +129,6 @@ int main()
 					retirer_carte(joueur1.carte, carte_debarasser);
 				}
 
-				/* affiche la progression du joueur */
-				affichage_progression(joueur1.bornes, joueur1.etat);
 
 				/* verifie si le joueur a atteint 1000 bornes */
                 est_fini(joueur1.bornes);
@@ -137,6 +137,7 @@ int main()
                 qui_le_tour = P2; 
 				
             } else if (qui_le_tour == P2){
+				system("clear"); /* permet d'effacer tous le terminal pour une belle interface */
 				printf("Tour du joueur 2\n");
 
 				affichage_interdiction(joueur2.interdiction);
@@ -145,8 +146,9 @@ int main()
                 ajouter_carte(joueur2.carte, pioche);
 
 				/* saisie utilisateur */
+				affichage_progression(joueur2.bornes, joueur2.etat); /* affiche la progression du joueur */
 				affichage_carte(joueur2.carte); /* affiche les cartes du joueur */
-				printf("Quelle carte souhaitez vous utiliser ? (0-6)\n");
+				printf("\nQuelle carte souhaitez vous utiliser ? (0-6)\n");
 				scanf("%d", &carte_choisie);
 
 				if (carte_choisie <= 6){
@@ -176,9 +178,6 @@ int main()
 
 					retirer_carte(joueur2.carte, carte_debarasser);
 				}
-
-				/* affiche la progression du joueur */
-				affichage_progression(joueur2.bornes, joueur2.etat);
 
 				/* verifie si le joueur a atteint 1000 bornes */
                 est_fini(joueur2.bornes);
@@ -325,21 +324,21 @@ void affichage_progression(int player_bornes, int player_etat){
 void affichage_carte(struct carte carte_joueur[7]){
         int i; /* variable de boucle */
 		for (i = 0; i < 7; i++){
-			printf("%s (%d), ", carte_joueur[i].nom, i);
-		}
+			printf("%s (%d), \n", carte_joueur[i].nom, i);
+	}
 }     
 
 void affichage_interdiction(int interdiction){
 	if (interdiction == FEU_ROUGE){
-		printf("Vous êtes arreter au feu rouge, déclencher le feu vert !\n");
+		printf("Vous êtes arreter au feu rouge, déclencher le feu vert !\n\n");
 	} else if (interdiction == LIMITE_VITESSE){
-		printf("Vous êtes fait prendre par les flics, en allez vous avec une fin de limite de vitesse !\n");
+		printf("Vous êtes fait prendre par les flics, en allez vous avec une fin de limite de vitesse !\n\n");
 	} else if (interdiction == PANNE_ESSENCE){
-		printf("Arrêtez vous à la station essence, vous êtes à sec !\n");
+		printf("Arrêtez vous à la station essence, vous êtes à sec !\n\n");
 	} else if (interdiction == CREVAISON){
-		printf("Vous avez crever, monter votre roue de secours !\n");
+		printf("Vous avez crever, monter votre roue de secours !\n\n");
 	} else if (interdiction == ACCIDENT){
-		printf("Vous avez eu un accident ! Tous vas bien ? Faite réparer au plus vite votre voiture ! \n");
+		printf("Vous avez eu un accident ! Tous vas bien ? Faite réparer au plus vite votre voiture ! \n\n");
 	}
 }
 
