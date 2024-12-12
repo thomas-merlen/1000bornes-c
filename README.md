@@ -53,11 +53,9 @@ Les cartes sont générées aléatoirement, j'espère que vous vous sentez chanc
 
 ## Installation
 
-_(Indiquer ici les instructions pour l'installation si nécessaire)_
 
 ## Comment jouer
 
-_(Ajouter des instructions détaillées sur comment démarrer une partie et jouer)_
 
 ## Plaisir d'avoir codé ce jeu
 
