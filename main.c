@@ -69,7 +69,7 @@ int main()
 
 	/* gere l'aleatoire dans notre jeux */
 	srand(time(NULL));
-	
+
     /* declaration et initialisation des variables */
 	struct pioche_s pioche;
 	init_pioche(pioche.tab_pioche);
@@ -338,7 +338,7 @@ void affichage_progression(int player_bornes, int player_etat){
 		} else if (player_bornes > 800 && player_bornes <= 900){
 				printf("|||||||||- %dkm \n\n", player_bornes);
 		} else if (player_bornes >= 1000){
-				printf("|||||||||| %dkm \n Bravo vous avez gagner !\n\n", player_bornes);
+				printf("|||||||||| %dkm \n Bravo vous avez gagner !\n Merci d'avoir jouer à notre 1000 bornes !\n", player_bornes);
 			}       
 }
 
