@@ -138,7 +138,7 @@ int main()
 				
             } else if (qui_le_tour == P2){
 				system("clear"); /* permet d'effacer tous le terminal pour une belle interface */
-				printf("Tour du joueur 2\n");
+				printf("Tour du joueur 2\n\n");
 
 				affichage_interdiction(joueur2.interdiction);
 
@@ -148,7 +148,7 @@ int main()
 				/* saisie utilisateur */
 				affichage_progression(joueur2.bornes, joueur2.etat); /* affiche la progression du joueur */
 				affichage_carte(joueur2.carte); /* affiche les cartes du joueur */
-				printf("\nQuelle carte souhaitez vous utiliser ? (0-6)\n");
+				printf("\nQuelle carte souhaitez vous utiliser ? (0-6) (7 si vous ne pouvez pas jouer): ");
 				scanf("%d", &carte_choisie);
 
 				if (carte_choisie <= 6){
@@ -156,12 +156,13 @@ int main()
 					/* si la carte est une interdiction */
 					if (joueur2.carte[carte_choisie].valeur == FEU_ROUGE || joueur2.carte[carte_choisie].valeur == LIMITE_VITESSE || joueur2.carte[carte_choisie].valeur == PANNE_ESSENCE || joueur2.carte[carte_choisie].valeur == CREVAISON || joueur2.carte[carte_choisie].valeur == ACCIDENT){
 						joueur1.etat = 0;
-						joueur1.interdiction = joueur1.carte[carte_choisie].valeur;
+						joueur1.interdiction = joueur2.carte[carte_choisie].valeur;
 					}
 
 					/* si la carte supprime une interdiction */
 					if ((joueur2.carte[carte_choisie].valeur == FEU_VERT && joueur2.interdiction == FEU_ROUGE) || (joueur2.carte[carte_choisie].valeur == FIN_LIMITE && joueur2.interdiction == LIMITE_VITESSE) || (joueur2.carte[carte_choisie].valeur == FIN_PANNE && joueur2.interdiction == PANNE_ESSENCE) || (joueur2.carte[carte_choisie].valeur == FIN_CREVAISON && joueur2.interdiction == CREVAISON) || (joueur2.carte[carte_choisie].valeur == FIN_ACCIDENT && joueur2.interdiction == ACCIDENT)){
 						joueur2.etat = 1;
+						joueur2.interdiction = FALSE;
 					}
 
 					/* carte borne pour avancer */
