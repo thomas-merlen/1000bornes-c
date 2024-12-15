@@ -53,10 +53,10 @@ Les cartes sont générées aléatoirement, j'espère que vous vous sentez chanc
 
 ## Installation
 
+Décompacter l'archive du jeu ce qui crée un répertoire 1000_Bornes.
+Dans un terminal Linux/Unix, se placer dans le répertoire du jeu et utiliser la commande make.
 
 ## Comment jouer
 
-
-## Plaisir d'avoir codé ce jeu
-
-Le rendu final est assez plaisant à jouer malgré des outils de programmation basiques utilisant les commandes de base du langage C.
+Lancer le programme 1000_bornes.
+Sous Linux, commande ./1000_bornes
