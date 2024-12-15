@@ -1,7 +1,6 @@
 #ifndef _AFFICHAGE_
 #define _AFFICHAGE_
 #include "Jeu.h"
-#include <time.h>
 
 #define FEU_ROUGE 42
 #define LIMITE_VITESSE 69
